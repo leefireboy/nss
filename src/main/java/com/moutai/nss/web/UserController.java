@@ -1,5 +1,6 @@
 package com.moutai.nss.web;
 
+import com.moutai.nss.base.BaseController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,11 +13,11 @@ import org.springframework.web.servlet.ModelAndView;
  * @Date: Create in 2018/2/23 22:47
  */
 @RestController
-public class UserController {
+public class UserController extends BaseController {
 
     @GetMapping(value = "/login")
     public String userLogin() {
-        return "test";
+        return "testname";
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)

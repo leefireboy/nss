@@ -15,7 +15,7 @@ public class InitController {
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public ModelAndView init() {
-        return new ModelAndView("index");
+        return new ModelAndView("login");
     }
 
 }
