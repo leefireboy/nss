@@ -1,7 +1,7 @@
--- 新建数据库
+# 新建数据库
 CREATE DATABASE nss;
 
--- 新建用户表
+# 新建用户表
 CREATE TABLE user (
   id BIGINT NOT NULL AUTO_INCREMENT COMMENT '用户ID',
   name VARCHAR(60) NOT NULL COMMENT '用户名',
@@ -18,7 +18,7 @@ CREATE TABLE user (
   UNIQUE KEY idx_name_mobile_phone (name, mobile_phone)
 ) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8 COMMENT '用户表';
 
--- 新建公司表
+# 新建公司表
 CREATE TABLE company (
   id BIGINT NOT NULL AUTO_INCREMENT COMMENT '公司ID',
   name VARCHAR(60) NOT NULL COMMENT '公司名',
@@ -26,7 +26,7 @@ CREATE TABLE company (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT '公司表';
 
--- 初始化公司表数据
+# 初始化公司表数据
 INSERT INTO company(name, short_name) VALUES
   ('天津市大通源洲商贸有限公司','大通源洲'),('天津市澳顺峰烟酒经销有限公司','澳顺峰'),
   ('天津市华溢睿智酒类销售有限公司','华溢睿智'),('天津鹏宇九缘商贸有限公司','鹏宇九缘'),
@@ -43,17 +43,31 @@ INSERT INTO company(name, short_name) VALUES
   ('天津威淳商贸有限公司','威淳'),('天津品高商贸有限公司','品高'),
   ('天津德道发商贸有限公司','德道发');
 
--- 新建消费记录表
+# 新建消费记录表
 CREATE TABLE sale_record (
   id BIGINT NOT NULL AUTO_INCREMENT COMMENT '消费记录ID',
-  customer VARCHAR(60) NOT NULL COMMENT '',
-  id_card VARCHAR(18) NOT NULL COMMENT '',
+  customer VARCHAR(60) NOT NULL COMMENT '客户名称',
+  id_card VARCHAR(18) NOT NULL COMMENT '客户身份证',
   mobile_phone VARCHAR(11) NOT NULL DEFAULT '00000000000' COMMENT '手机号',
   company_id BIGINT NOT NULL COMMENT '公司ID',
-  company_name VARCHAR(120) NOT NULL COMMENT '公司名称',
+  company_short_name VARCHAR(120) NOT NULL COMMENT '公司简称',
+  activity_id BIGINT NOT NULL COMMENT '活动ID',
   remark varchar(255) NOT NULL DEFAULT '...' COMMENT '备注',
   create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   delete_flag tinyint NOT NULL DEFAULT 0 COMMENT '是否删除 0：否 1：是',
   PRIMARY KEY (id),
   UNIQUE KEY idx_id_card (id_card)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT '消费记录表';
+
+# 活动表
+CREATE TABLE activity (
+  id BIGINT NOT NULL AUTO_INCREMENT COMMENT '活动ID',
+  name VARCHAR(60) NOT NULL COMMENT '活动名',
+  start_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '开始时间',
+  end_time TIMESTAMP NOT NULL COMMENT '结束时间',
+  create_id BIGINT NOT NULL COMMENT '创建人ID',
+  create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  modify_id BIGINT NOT NULL DEFAULT 0 COMMENT '修改人ID',
+  modify_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
+  PRIMARY KEY (id)
+) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8 COMMENT '活动表';

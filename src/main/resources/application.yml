@@ -1,6 +1,7 @@
 server:
   port: 8080
   context-path: /nss
+  display-name: NSS MOUTAI TIANJIN
 
 # Spring configuration
 spring:
@@ -16,10 +17,16 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/nss?useUnicode=true&characterEncoding=utf8
     username: root
     password: 123456
+    schema: schema.sql
   mvc:
     date-format: yyyy-MM-dd HH:mm:ss
     locale: zh_CN
   thymeleaf:
+    enabled: true
+    mode: HTML5
+    encoding: UTF-8
+    prefix: classpath:/templates/
+    suffix: .html
     cache: false
 
 # Mybatis configuration
