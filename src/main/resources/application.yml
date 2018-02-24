@@ -1,0 +1,39 @@
+server:
+  port: 8080
+  context-path: /nss
+
+# Spring configuration
+spring:
+  application:
+    name: No Scalpers System
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/nss?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 123456
+  mvc:
+    date-format: yyyy-MM-dd HH:mm:ss
+    locale: zh_CN
+  thymeleaf:
+    cache: false
+
+# Mybatis configuration
+mybatis:
+  type-aliases-package: com.moutai.nss.entity
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    use-generated-keys: true
+    use-column-label: true
+    map-underscore-to-camel-case: true
+
+# Logging configuration
+debug: true
+logging:
+  file: test.log
+  level:
+    com.moutai.nss: debug
