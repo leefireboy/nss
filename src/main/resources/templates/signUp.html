@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <!-- Meta -->
+    <meta name="description" content="茅台·天津 | 活动登记系统."/>
+    <meta name="author" content="WY"/>
+
+    <link rel="shortcut icon" th:href="@{/picture/favicon.ico}" type="image/x-icon"/>
+    <title>茅台·天津 | 活动登记系统</title>
+
+    <!-- vendor css -->
+    <link th:href="@{css/font-awesome.css}" rel="stylesheet"/>
+    <link th:href="@{css/ionicons.css}" rel="stylesheet"/>
+    <link th:href="@{css/select2.min.css}" rel="stylesheet"/>
+
+    <!-- Starlight CSS -->
+    <link rel="stylesheet" th:href="@{css/starlight.css}"/>
+</head>
+
+<body>
+
+<div class="d-flex align-items-center justify-content-center bg-sl-primary ht-md-100v">
+
+    <div class="login-wrapper wd-300 wd-xs-400 pd-25 pd-xs-40 bg-white">
+        <div class="signin-logo tx-center tx-16 tx-bold tx-inverse">茅台·天津 | 活动登记系统</div>
+        <div class="tx-center mg-b-20">MouTai·TianJin | Activity recording system</div>
+        <div class="tx-center mg-b-40"><span class="tx-center tx-info tx-normal"> 注册新用户</span></div>
+        <form th:action="@{/}" method="post" id="signUpForm" onsubmit="return valiForm();">
+            <div class="form-group">
+                <input type="text" class="form-control" name="name" placeholder="请输入姓名" onblur="valiName()"/>
+                <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px; display: none;"
+                      id="nameInfo"/>
+            </div><!-- form-group -->
+            <div class="form-group">
+                <input type="text" class="form-control" name="phone" placeholder="请输入手机号" onblur="valiPhone()"/>
+                <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px; display: none;"
+                      id="phoneInfo"/>
+            </div><!-- form-group -->
+            <div class="form-group">
+                <input type="password" class="form-control" id="pwd" placeholder="请输入密码" onblur="valiPwd()"/>
+                <input type="hidden" name="md5Pwd"/>
+                <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px; display: none;"
+                      id="pwdInfo"/>
+            </div><!-- form-group -->
+            <div class="form-group">
+                <label class="d-block tx-11 tx-uppercase tx-medium tx-spacing-1">请选择所在店铺</label>
+                <div class="row row-xs">
+                    <div class="col-sm-12" id="storeDiv">
+                        <select class="form-control select2" data-placeholder="请选择所在店铺" name="store" onchange="valiStore()">
+                            <option label=""></option>
+                            <option th:each="item, allStore:${storeList}" th:value="${item}" th:text="${item}"></option>
+                        </select>
+                        <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px; display: none;"
+                              id="storeInfo"/>
+                    </div><!-- col-4 -->
+                </div><!-- row -->
+            </div><!-- form-group -->
+            <div class="form-group tx-12">点击下面的“注册”按钮，即表示你同意本网站的隐私政策和使用条款。</div>
+            <button type="submit" class="btn btn-info btn-block">注&nbsp;&nbsp;&nbsp;册</button>
+            <div class="mg-t-40 tx-center">已有账号? <a th:href="@{signIn}" class="tx-info"> 登录</a></div>
+        </form>
+    </div><!-- login-wrapper -->
+</div><!-- d-flex -->
+
+<script th:src="@{js/jquery.js}"></script>
+<script th:src="@{js/popper.js}"></script>
+<script th:src="@{js/bootstrap.js}"></script>
+<script th:src="@{js/select2.min.js}"></script>
+<script th:src="@{js/jquery.md5.js}"></script>
+
+<script th:inline="javascript">
+
+    /*<![CDATA[*/
+
+    $(function () {
+        'use strict';
+
+        $('.select2').select2({
+            minimumResultsForSearch: Infinity
+        });
+    });
+
+    $(function(){
+        $("#pwd").blur(function(){
+            var pwd = $(this).val();
+            var md5Pwd = $.md5(pwd);
+            $('input[name="md5Pwd"]').val(md5Pwd);
+        });
+    });
+
+    // 验证姓名是否为空
+    function valiName() {
+        var name = $('input[name="name"]');
+        var nameInfo = $("#nameInfo");
+        nameInfo.html("");
+        if (name.val() == null || ($.trim(name.val())) == "") {
+            nameInfo.html("用户姓名不能为空！");
+            name.addClass("is-invalid");
+            $("#nameInfo").css('display', 'block');
+            return false;
+        } else {
+            name.removeClass("is-invalid");
+        }
+        return true;
+    }
+
+    // 验证手机号是否为空
+    function valiPhone() {
+        var phone = $('input[name="phone"]');
+        var phoneInfo = $("#phoneInfo");
+        var pattern = /^1[34578]\d{9}$/;
+        phoneInfo.html("");
+        if (phone.val() == null || ($.trim(phone.val())) == "") {
+            phoneInfo.html("用户手机号不能为空！");
+            phone.addClass("is-invalid");
+            $("#phoneInfo").css('display', 'block');
+            return false;
+        } else if (!(pattern.test(phone.val().toString()))) {
+            phoneInfo.html("用户手机号格式不正确！");
+        }else {
+            phone.removeClass("is-invalid");
+        }
+        return true;
+    }
+
+    // 验证密码
+    function valiPwd() {
+        var pwd = $("#pwd");
+        var pwdInfo = $("#pwdInfo");
+        pwdInfo.html("");
+        if (pwd.val() == null || ($.trim(pwd.val())) == "") {
+            pwdInfo.html("用户密码不能为空！");
+            pwd.addClass("is-invalid");
+            $("#pwdInfo").css('display', 'block');
+            return false;
+        } else if(pwd.val().trim().length < 6){
+            pwdInfo.html("用户密码不能低于6位！");
+            $("#pwdInfo").css('display', 'block');
+            pwd.addClass("is-invalid");
+            return false;
+        } else {
+            pwd.removeClass("is-invalid");
+        }
+        return true;
+    }
+
+    // 验证店铺信息
+    function valiStore() {
+        var store = $('select[name="store"]');
+        var storeInfo = $("#storeInfo");
+        var storeDiv = $("#storeDiv");
+        storeInfo.html("");
+        if (store.val() == null || ($.trim(store.val())) == "") {
+            storeInfo.html("请选择活动项目");
+            $("#storeInfo").css('display', 'block');
+            storeDiv.addClass("has-danger");
+            return false;
+        } else {
+            storeDiv.removeClass("has-danger");
+        }
+        return true;
+    }
+
+    // 验证表单
+    function valiForm() {
+        if(valiName() && valiPwd() && valiStore()) {
+            alert("表单提交了。");
+            // document.getElementById("signUpForm").submit();
+        } else {
+            valiName();
+            valiPhone();
+            valiPwd();
+            valiStore();
+            return false;
+        }
+        
+    }
+
+    /*]]>*/
+
+</script>
+
+</body>
+</html>

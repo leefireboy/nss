@@ -1,0 +1,383 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <!-- Meta -->
+    <meta name="description" content="茅台·天津 | 活动登记系统."/>
+    <meta name="author" content="WY"/>
+
+    <link rel="shortcut icon" th:href="@{/picture/favicon.ico}" type="image/x-icon"/>
+    <title>茅台·天津 | 活动登记系统</title>
+
+    <!-- vendor css -->
+    <link th:href="@{/css/font-awesome.css}" rel="stylesheet"/>
+    <link th:href="@{/css/ionicons.css}" rel="stylesheet"/>
+    <link th:href="@{/css/perfect-scrollbar.css}" rel="stylesheet"/>
+    <link th:href="@{/css/github.css}" rel="stylesheet"/>
+    <link th:href="@{/css/select2.min.css}" rel="stylesheet"/>
+
+    <!-- Starlight CSS -->
+    <link rel="stylesheet" th:href="@{/css/starlight.css}"/>
+</head>
+
+<body>
+
+<!-- ########## START: LEFT PANEL ########## -->
+<div class="sl-logo"><a href=""><img th:src="@{/picture/mt_logo_wh.jpg}" style="width: 30px; height: 30px;"/> <span
+        style="font-size: 18px">茅台·活动登记系统</span></a></div>
+<div class="sl-sideleft">
+    <div class="input-group input-group-search">
+        <input type="search" name="search" class="form-control" placeholder="Search"/>
+        <span class="input-group-btn">
+          <button class="btn"><i class="fa fa-search"></i></button>
+        </span><!-- input-group-btn -->
+    </div><!-- input-group -->
+
+    <label class="sidebar-label">导航栏</label>
+    <div class="sl-sideleft-menu">
+        <a th:href="@{index1}" class="sl-menu-link">
+            <div class="sl-menu-item">
+                <i class="menu-item-icon icon ion-ios-paper-outline tx-20"></i>
+                <span class="menu-item-label">活动项列表</span>
+            </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+        <a th:href="@{addSalerecord}" class="sl-menu-link active">
+            <div class="sl-menu-item">
+                <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
+                <span class="menu-item-label">添加销售记录</span>
+            </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+        <a th:href="@{setting}" class="sl-menu-link">
+            <div class="sl-menu-item">
+                <i class="menu-item-icon icon ion-ios-gear-outline tx-24"></i>
+                <span class="menu-item-label">设置</span>
+                <i class="menu-item-arrow fa fa-angle-down"></i>
+            </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+        <ul class="sl-menu-sub nav flex-column">
+            <li class="nav-item"><a href="form-elements.html" class="nav-link">Form Elements</a></li>
+            <li class="nav-item"><a href="form-layouts.html" class="nav-link">Form Layouts</a></li>
+            <li class="nav-item"><a href="form-validation.html" class="nav-link">Form Validation</a></li>
+            <li class="nav-item"><a href="form-wizards.html" class="nav-link">Form Wizards</a></li>
+            <li class="nav-item"><a href="form-editor-text.html" class="nav-link">Text Editor</a></li>
+        </ul>
+        <a th:href="@{about}" class="sl-menu-link">
+            <div class="sl-menu-item">
+                <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
+                <span class="menu-item-label">关于</span>
+            </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+    </div><!-- sl-sideleft-menu -->
+</div><!-- sl-sideleft -->
+<!-- ########## END: LEFT PANEL ########## -->
+
+<!-- ########## START: HEAD PANEL ########## -->
+<div class="sl-header">
+    <div class="sl-header-left">
+        <div class="navicon-left hidden-md-down"><a id="btnLeftMenu" href=""><i class="icon ion-navicon-round"></i></a>
+        </div>
+        <div class="navicon-left hidden-lg-up"><a id="btnLeftMenuMobile" href=""><i class="icon ion-navicon-round"></i></a>
+        </div>
+    </div><!-- sl-header-left -->
+    <div class="sl-header-right">
+        <nav class="nav">
+            <div class="dropdown">
+                <a href="" class="nav-link nav-link-profile" data-toggle="dropdown">
+                    <span class="logged-name">Jane<span class="hidden-md-down"> Doe</span></span>
+                    <img th:src="@{/picture/mt_logo_wh.jpg}" class="wd-32 rounded-circle" alt=""/>
+                </a>
+                <div class="dropdown-menu dropdown-menu-header wd-200">
+                    <ul class="list-unstyled user-profile-nav">
+                        <li><a href=""><i class="icon ion-ios-person-outline"></i> Edit Profile</a></li>
+                        <li><a href=""><i class="icon ion-ios-gear-outline"></i> Settings</a></li>
+                        <li><a href=""><i class="icon ion-ios-download-outline"></i> Downloads</a></li>
+                        <li><a href=""><i class="icon ion-ios-star-outline"></i> Favorites</a></li>
+                        <li><a href=""><i class="icon ion-ios-folder-outline"></i> Collections</a></li>
+                        <li><a href=""><i class="icon ion-power"></i> Sign Out</a></li>
+                    </ul>
+                </div><!-- dropdown-menu -->
+            </div><!-- dropdown -->
+        </nav>
+        <div class="navicon-right">
+
+        </div><!-- navicon-right -->
+    </div><!-- sl-header-right -->
+</div><!-- sl-header -->
+<!-- ########## END: HEAD PANEL ########## -->
+
+<!-- ########## START: RIGHT PANEL ########## -->
+
+<!-- ########## END: RIGHT PANEL ########## -->
+
+<!-- ########## START: MAIN PANEL ########## -->
+<div class="sl-mainpanel">
+    <nav class="breadcrumb sl-breadcrumb">
+        <a class="breadcrumb-item" href="index.html">茅台销售登记系统</a>
+        <span class="breadcrumb-item active">新增销售记录</span>
+    </nav>
+
+    <div class="sl-pagebody">
+        <!-- <div class="sl-page-title">
+          <h5>Form Layouts</h5>
+          <p>Forms are used to collect user information with different element types of input, select, checkboxes, radios and more.</p>
+        </div> -->
+        <!-- sl-page-title -->
+
+        <div class="card pd-20 pd-sm-40 form-layout form-layout-4">
+            <h6 class="card-body-title">新增销售记录</h6>
+            <p class="mg-b-20 mg-sm-b-30">Add Salerecord.</p>
+
+            <form th:action="@{/}" method="post" id="addCustForm" onsubmit="return valiForm();">
+                <div class="row">
+                    <label class="col-sm-1 form-control-label"> 活动项目:<span
+                            class="tx-danger">*</span></label>
+                    <div class="col-sm-3 mg-t-10 mg-sm-t-0" id="actDiv">
+                        <select class="form-control select2" data-placeholder="请选择活动项目"
+                                data-parsley-class-handler="#slWrapper"
+                                data-parsley-errors-container="#slErrorContainer"
+                                id="act" name="act" onchange="valiAct()">
+                            <option label=""></option>
+                            <option th:each="item, allAct:${actList}" th:value="${item}" th:text="${item}"></option>
+                        </select>
+                        <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px;"
+                              id="actInfo"/>
+                    </div>
+                </div><!-- row -->
+                <div class="row mg-t-20">
+                    <label class="col-sm-1 form-control-label"> 客户姓名:<span
+                            class="tx-danger">*</span></label>
+                    <div class="col-sm-3 mg-t-10 mg-sm-t-0">
+                        <input type="text" class="form-control" placeholder="请输入客户姓名" name="name"
+                               onblur="validateName()"/>
+                        <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px;"
+                              id="nameInfo"/>
+                    </div>
+                </div><!-- row -->
+                <div class="row mg-t-20">
+                    <label class="col-sm-1 form-control-label"> 性别:<span
+                            class="tx-danger">*</span></label>
+                    <div class="col-sm-1 mg-t-10 mg-sm-t-0">
+                        <label class="rdiobox">
+                            <input name="rdio_sex" type="radio" checked="checked" value="男"/>
+                            <span>男</span>
+                        </label>
+                    </div>
+                    <div class="col-sm-1 mg-t-10 mg-sm-t-0">
+                        <label class="rdiobox">
+                            <input name="rdio_sex" type="radio" value="女"/>
+                            <span>女</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="row mg-t-20">
+                    <label class="col-sm-1 form-control-label"> 手机号码:<span class="tx-danger">*</span></label>
+                    <div class="col-sm-3 mg-t-10 mg-sm-t-0">
+                        <input type="text" class="form-control" placeholder="请输入客户手机号码" name="phone"
+                               onblur="validatePhone()"/>
+                        <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px;"
+                              id="phoneInfo"/>
+                    </div>
+                </div>
+                <div class="row mg-t-20">
+                    <label class="col-sm-1 form-control-label"> 身份证号:<span class="tx-danger">*</span></label>
+                    <div class="col-sm-3 mg-t-10 mg-sm-t-0">
+                        <input type="text" class="form-control" placeholder="请输入客户身份证号" name="idCard"
+                               onblur="validateIdCard()"/>
+                        <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px;"
+                              id="idCardInfo"/>
+                    </div>
+                </div>
+                <div class="row mg-t-20">
+                    <label class="col-sm-1 form-control-label"> 购买数量:<span class="tx-danger">*</span></label>
+                    <div class="col-sm-3 mg-t-10 mg-sm-t-0">
+                        <input type="text" class="form-control" placeholder="请输入客户购酒数量" name="amount"
+                               onblur="valiAmount()"/>
+                        <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px;"
+                              id="amountInfo"/>
+                    </div>
+                </div>
+                <div class="row mg-t-20">
+                    <label class="col-sm-1 form-control-label"> 备注:</label>
+                    <div class="col-sm-5 mg-t-10 mg-sm-t-0">
+                        <textarea rows="2" class="form-control" placeholder="请输入备注信息" name="marks"></textarea>
+                    </div>
+                </div>
+                <div class="form-layout-footer mg-t-30">
+                    <button class="btn btn-info mg-r-5" type="submit">确认添加</button>
+                    <button class="btn btn-secondary" type="reset">清&nbsp;&nbsp;&nbsp;&nbsp;空</button>
+                </div><!-- form-layout-footer -->
+            </form>
+        </div><!-- card -->
+    </div><!-- sl-pagebody -->
+    <footer class="sl-footer">
+        <div class="footer-left">
+            <div class="mg-b-2">Copyright &copy; 2018. 天津海津皇冠贸易有限公司. All Rights Reserved.</div>
+        </div>
+        <div class="footer-right d-flex align-items-center">Made by 海津皇冠.</div>
+    </footer>
+</div><!-- sl-mainpanel -->
+
+
+<!-- ########## END: MAIN PANEL ########## -->
+
+<script th:src="@{/js/jquery.js}"></script>
+<script th:src="@{/js/popper.js}"></script>
+<script th:src="@{/js/bootstrap.js}"></script>
+<script th:src="@{/js/jquery-ui.js}"></script>
+<script th:src="@{/js/perfect-scrollbar.jquery.js}"></script>
+<script th:src="@{/js/highlight.pack.js}"></script>
+<script th:src="@{/js/select2.min.js}"></script>
+
+<script th:src="@{/js/starlight.js}"></script>
+<script>
+    $(function () {
+        'use strict';
+
+        $('.select2').select2({
+            minimumResultsForSearch: Infinity
+        });
+
+        // Select2 by showing the search
+        $('.select2-show-search').select2({
+            minimumResultsForSearch: ''
+        });
+
+        $('.select3').select2({
+            minimumResultsForSearch: Infinity
+        });
+
+        $('.select3-show-search').select3({
+            minimumResultsForSearch: ''
+        });
+
+        // Select2 with tagging support
+        $('.select2-tag').select2({
+            tags: true,
+            tokenSeparators: [',', ' ']
+        });
+
+        // Datepicker
+        $('.fc-datepicker').datepicker({
+            showOtherMonths: true,
+            shouOtherYear: true,
+            selectOterYear: true,
+            selectOtherMonths: true
+        });
+
+
+    });
+
+
+</script>
+
+<script th:inline="javascript">
+
+    /*<![CDATA[*/
+
+    // 验证活动项目
+    function valiAct() {
+        var act = $('select[name="act"]');
+        var actInfo = $("#actInfo");
+        var actDiv = $("#actDiv");
+        actInfo.html("");
+        if (act.val() == null || ($.trim(act.val())) == "") {
+            actInfo.html("请选择活动项目");
+            actDiv.addClass("has-danger");
+            return false;
+        } else {
+            actDiv.removeClass("has-danger");
+        }
+        return true;
+    }
+
+    // 验证用户名是否为空
+    function validateName() {
+        var name = $('input[name="name"]');
+        var nameInfo = $("#nameInfo");
+        nameInfo.html("");
+        if (name.val() == null || ($.trim(name.val())) == "") {
+            nameInfo.html("客户姓名不能为空！");
+            name.addClass("is-invalid");
+            return false;
+        } else {
+            name.removeClass("is-invalid");
+        }
+        return true;
+    }
+
+    // 验证客户手机号
+    function validatePhone() {
+        var phone = $('input[name="phone"]');
+        var phoneInfo = $("#phoneInfo");
+        var pattern = /^1[34578]\d{9}$/;
+        phoneInfo.html("");
+        if ((phone.val() == null || ($.trim(phone.val())) == "")) {
+            phoneInfo.html("客户联系方式不能为空！");
+            phone.addClass("is-invalid");
+            return false;
+        } else if (!(pattern.test(phone.val().toString()))) {
+            phoneInfo.html("用户手机号格式不正确！");
+        } else {
+            phone.removeClass("is-invalid");
+        }
+        return true;
+    }
+
+    // 验证客户身份证号
+    function validateIdCard() {
+        var idCard = $('input[name="idCard"]');
+        var idCardInfo = $("#idCardInfo");
+        var pattern = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+        idCardInfo.html("");
+        if (idCard.val() == null || ($.trim(idCard.val())) == "") {
+            idCardInfo.html("客户身份证号不能为空！");
+            idCard.addClass("is-invalid");
+            return false;
+        } else if (!(pattern.test(idCard.val().toString()))) {
+            idCardInfo.html("二代身份证号码格式不正确！");
+            idCard.addClass("is-invalid");
+            return false;
+        } else {
+            idCard.removeClass("is-invalid");
+        }
+        return true;
+    }
+
+    // 验证客户购买数量
+    function valiAmount() {
+        var amount = $('input[name="amount"]');
+        var amountInfo = $("#amountInfo");
+        amountInfo.html("");
+        if (amount.val() == null || ($.trim(amount.val()) == "")) {
+            amountInfo.html("客户购酒数量不能为空！");
+            amount.addClass("is-invalid");
+            return false;
+        } else {
+            amount.removeClass("is-invalid");
+        }
+        return true;
+    }
+
+
+    function valiForm() {
+        if (validateName() && validateContact() && validateIdCard() && valiAct() && valiAmount()) {
+            return true;
+            // document.getElementById("form_addCust").submit();
+        } else {
+            validateName();
+            validatePhone();
+            validateIdCard();
+            valiAct();
+            valiAmount();
+            return false;
+        }
+    }
+
+    /*]]>*/
+
+</script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <!-- Meta -->
+    <meta name="description" content="茅台·天津 | 活动登记系统."/>
+    <meta name="author" content="WY"/>
+
+    <link rel="shortcut icon" th:href="@{/picture/favicon.ico}" type="image/x-icon"/>
+    <title>茅台·天津 | 活动登记系统</title>
+
+    <!-- vendor css -->
+    <link th:href="@{css/font-awesome.css}" rel="stylesheet"/>
+    <link th:href="@{css/ionicons.css}" rel="stylesheet"/>
+
+    <!-- Starlight CSS -->
+    <link rel="stylesheet" th:href="@{css/starlight.css}"/>
+</head>
+
+<body>
+<div class="d-flex align-items-center justify-content-center bg-sl-primary ht-100v">
+    <div class="login-wrapper wd-300 wd-xs-350 pd-25 pd-xs-40 bg-white">
+        <div class="signin-logo tx-center tx-16 tx-bold tx-inverse">茅台·天津 | 活动登记系统</div>
+        <div class="tx-center mg-b-20">MouTai·TianJin | Activity recording system</div>
+        <div class="tx-center mg-b-40"><span class="tx-center tx-info tx-normal"> 用户登录</span></div>
+        <form th:action="@{/}" method="post" id="signInForm" onsubmit="return valiForm();">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="请输入用户名/手机号" name="name" onblur="valiName()"/>
+                <input type="hidden" name="accountType"/>
+                <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px; display: none;"
+                      id="nameInfo"/>
+            </div><!-- form-group -->
+            <div class="form-group">
+                <input type="password" class="form-control" id="pwd" placeholder="请输入密码" onblur="valiPwd()"/>
+                <input type="hidden" name="md5Pwd"/>
+                <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px; display: none;"
+                      id="pwdInfo"/>
+                <a href="" class="tx-info tx-12 d-block mg-t-10">忘记密码?</a>
+            </div><!-- form-group -->
+            <button type="submit" class="btn btn-info btn-block">登&nbsp;&nbsp;&nbsp;录</button>
+            <div class="mg-t-60 tx-center">没有账号? <a th:href="@{signUp}" class="tx-info"> 注册账号</a></div>
+        </form>
+    </div><!-- login-wrapper -->
+</div><!-- d-flex -->
+<script th:src="@{js/jquery.js}"></script>
+<script th:src="@{js/popper.js}"></script>
+<script th:src="@{js/bootstrap.js}"></script>
+<script th:src="@{js/jquery.md5.js}"></script>
+
+<script th:inline="javascript">
+
+    $(function(){
+        $("#pwd").blur(function(){
+            var pwd = $(this).val();
+            var md5Pwd = $.md5(pwd);
+            $('input[name="md5Pwd"]').val(md5Pwd);
+        });
+    });
+
+    /*<![CDATA[*/
+
+    // 验证用户名是否为空
+    function valiName() {
+        var name = $('input[name="name"]');
+        var nameInfo = $("#nameInfo");
+        var patternName = /^[\u4E00-\u9FA5]{1,6}$/;
+        var patternPhone = /^1[34578]\d{9}$/;
+        nameInfo.html("");
+        if (name.val() == null || ($.trim(name.val())) == "") {
+            nameInfo.html("用户名/手机号不能为空！");
+            name.addClass("is-invalid");
+            $("#nameInfo").css('display', 'block');
+            return false;
+        } else if(patternName.test(name.val())) {
+            $('input[name="accountType"]').val("name");
+        } else if(patternPhone.test(name.val())) {
+            $('input[name="accountType"]').val("phone");
+        } else {
+            name.removeClass("is-invalid");
+        }
+        return true;
+    }
+
+    // 验证密码
+    function valiPwd() {
+        var pwd = $("#pwd");
+        var pwdInfo = $("#pwdInfo");
+        pwdInfo.html("");
+        if (pwd.val() == null || ($.trim(pwd.val())) == "") {
+            pwdInfo.html("用户密码不能为空！");
+            $("#pwdInfo").css('display', 'block');
+            pwd.addClass("is-invalid");
+            return false;
+        } else if(pwd.val().trim().length < 6){
+            pwdInfo.html("用户密码不能低于6位！");
+            $("#pwdInfo").css('display', 'block');
+            pwd.addClass("is-invalid");
+            return false;
+        } else {
+            pwd.removeClass("is-invalid");
+        }
+        return true;
+    }
+    
+    // 验证表单
+    function valiForm() {
+        if(valiName() && valiPwd()) {
+            // document.getElementById("signUpForm").submit();
+        } else {
+            valiName();
+            valiPwd();
+            return false;
+        }
+    }
+
+    /*]]>*/
+
+</script>
+</body>
+</html>
