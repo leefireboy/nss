@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moutai.nss.dao.CompanyDao">
+
+    <sql id="col">
+        id, `name`, short_name, create_time, delete_flag
+    </sql>
+
+    <sql id="insert_valid_col">
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null">`name`,</if>
+            <if test="shortName != null">short_name,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="deleteFlag != null">delete_flag,</if>
+        </trim>
+    </sql>
+
+    <sql id="insert_valid_value">
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="name != null">#{name},</if>
+            <if test="shortName != null">#{shortName},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="deleteFlag != null">#{deleteFlag},</if>
+        </trim>
+    </sql>
+
+    <sql id="update_valid_col">
+        <trim suffixOverrides=",">
+            <if test="id != null">id=#{id},</if>
+            <if test="name != null">`name`=#{name},</if>
+            <if test="shortName != null">short_name=#{shortName},</if>
+            <if test="createTime != null">create_time=#{createTime},</if>
+            <if test="deleteFlag != null">delete_flag=#{deleteFlag},</if>
+        </trim>
+    </sql>
+
+    <insert id="insert" parameterType="Company" useGeneratedKeys="true" keyProperty="id">
+        INSERT IGNORE INTO company
+        <include refid="insert_valid_col"/>
+        VALUES
+        <include refid="insert_valid_value"/>
+    </insert>
+
+    <update id="update" parameterType="Company">
+        UPDATE company
+        SET
+        <include refid="update_valid_col"/>
+        WHERE
+        id=#{id}
+    </update>
+
+    <update id="delete">
+        UPDATE company
+        SET
+        delete_flag=1
+        WHERE
+        id=#{id}
+    </update>
+
+    <select id="selectById" resultType="Company">
+        SELECT <include refid="col"/> FROM company WHERE id=#{id}
+    </select>
+
+    <select id="selectAll" resultType="Company">
+        SELECT <include refid="col"/> FROM company
+    </select>
+
+</mapper>

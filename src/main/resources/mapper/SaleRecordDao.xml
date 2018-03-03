@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moutai.nss.dao.SaleRecordDao">
+
+    <sql id="col">
+        id, customer, id_card, mobile_phone, company_id, company_short_name, activity_id, remark, create_time, delete_flag
+    </sql>
+
+    <sql id="insert_valid_col">
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="customer != null">customer,</if>
+            <if test="idCard != null">id_card,</if>
+            <if test="mobilePhone != null">mobile_phone,</if>
+            <if test="companyId != null">company_id,</if>
+            <if test="companyShortName != null">company_short_name,</if>
+            <if test="activityId != null">activity_id,</if>
+            <if test="remark != null">remark,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="deleteFlag != null">delete_flag,</if>
+        </trim>
+    </sql>
+
+    <sql id="insert_valid_value">
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="customer != null">#{customer},</if>
+            <if test="idCard != null">#{idCard},</if>
+            <if test="mobilePhone != null">#{mobilePhone},</if>
+            <if test="companyId != null">#{companyId},</if>
+            <if test="companyShortName != null">#{companyShortName},</if>
+            <if test="activityId != null">#{activityId},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="deleteFlag != null">#{deleteFlag},</if>
+        </trim>
+    </sql>
+
+    <sql id="update_valid_col">
+        <trim suffixOverrides=",">
+            <if test="id != null">id=#{id},</if>
+            <if test="customer != null">customer=#{customer},</if>
+            <if test="idCard != null">id_card=#{idCard},</if>
+            <if test="mobilePhone != null">mobile_phone=#{mobilePhone},</if>
+            <if test="companyId != null">company_id=#{companyId},</if>
+            <if test="companyShortName != null">company_short_name=#{companyShortName},</if>
+            <if test="activityId != null">activity_id=#{activityId},</if>
+            <if test="remark != null">remark=#{remark},</if>
+            <if test="createTime != null">create_time=#{createTime},</if>
+            <if test="deleteFlag != null">delete_flag=#{deleteFlag},</if>
+        </trim>
+    </sql>
+
+    <insert id="insert" parameterType="SaleRecord" useGeneratedKeys="true" keyProperty="id">
+        INSERT IGNORE INTO sale_record
+        <include refid="insert_valid_col"/>
+        VALUES
+        <include refid="insert_valid_value"/>
+    </insert>
+
+    <update id="update" parameterType="SaleRecord">
+        UPDATE sale_record
+        SET
+        <include refid="update_valid_col"/>
+        WHERE
+        id=#{id}
+    </update>
+
+    <update id="delete">
+        UPDATE sale_record
+        SET
+        delete_flag=1
+        WHERE
+        id=#{id}
+    </update>
+
+    <select id="selectById" resultType="SaleRecord">
+        SELECT <include refid="col"/> FROM sale_record WHERE id=#{id}
+    </select>
+
+    <select id="selectAll" resultType="SaleRecord">
+        SELECT <include refid="col"/> FROM sale_record
+    </select>
+
+</mapper>
