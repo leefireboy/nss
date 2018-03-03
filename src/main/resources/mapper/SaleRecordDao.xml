@@ -5,7 +5,8 @@
 <mapper namespace="com.moutai.nss.dao.SaleRecordDao">
 
     <sql id="col">
-        id, customer, id_card, mobile_phone, company_id, company_short_name, activity_id, remark, create_time, delete_flag
+        id, customer, id_card, mobile_phone, company_id, company_short_name, activity_id,
+        remark, create_id, create_time, modify_id, modify_time, delete_flag
     </sql>
 
     <sql id="insert_valid_col">
@@ -18,7 +19,10 @@
             <if test="companyShortName != null">company_short_name,</if>
             <if test="activityId != null">activity_id,</if>
             <if test="remark != null">remark,</if>
+            <if test="createId != null">create_id,</if>
             <if test="createTime != null">create_time,</if>
+            <if test="modifyId != null">modify_id,</if>
+            <if test="modifyTime != null">modify_time,</if>
             <if test="deleteFlag != null">delete_flag,</if>
         </trim>
     </sql>
@@ -33,7 +37,10 @@
             <if test="companyShortName != null">#{companyShortName},</if>
             <if test="activityId != null">#{activityId},</if>
             <if test="remark != null">#{remark},</if>
+            <if test="createId != null">#{createId},</if>
             <if test="createTime != null">#{createTime},</if>
+            <if test="modifyId != null">#{modifyId},</if>
+            <if test="modifyTime != null">#{modifyTime},</if>
             <if test="deleteFlag != null">#{deleteFlag},</if>
         </trim>
     </sql>
@@ -48,7 +55,10 @@
             <if test="companyShortName != null">company_short_name=#{companyShortName},</if>
             <if test="activityId != null">activity_id=#{activityId},</if>
             <if test="remark != null">remark=#{remark},</if>
+            <if test="createId != null">create_id=#{createId},</if>
             <if test="createTime != null">create_time=#{createTime},</if>
+            <if test="modifyId != null">modify_id=#{modifyId},</if>
+            <if test="modifyTime != null">modify_time=#{modifyTime},</if>
             <if test="deleteFlag != null">delete_flag=#{deleteFlag},</if>
         </trim>
     </sql>
@@ -77,11 +87,33 @@
     </update>
 
     <select id="selectById" resultType="SaleRecord">
-        SELECT <include refid="col"/> FROM sale_record WHERE id=#{id}
+        SELECT <include refid="col"/> FROM sale_record WHERE id=#{id} AND delete_flag=0
     </select>
 
     <select id="selectAll" resultType="SaleRecord">
-        SELECT <include refid="col"/> FROM sale_record
+        SELECT <include refid="col"/> FROM sale_record WHERE delete_flag=0
+    </select>
+    
+    <select id="selectByParams" parameterType="com.moutai.nss.web.vo.SaleRecordQueryParams" resultType="SaleRecord">
+        SELECT <include refid="col"/> FROM sale_record WHERE activity_id=#{activityId} AND delete_flag=0
+        <if test="customer != null">
+            AND customer=#{customer}
+        </if>
+        <if test="idCard != null">
+            AND id_card=#{idCard}
+        </if>
+        <if test="mobilePhone != null">
+            AND mobile_phone=#{mobilePhone}
+        </if>
+        <if test="companyId != null">
+            AND company_id=#{companyId}
+        </if>
+        <if test="startTime != null and endTime != null">
+            AND create_time>=#{createTime} AND create_time <![CDATA[ <= ]]> #{endTime}
+        </if>
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
     </select>
 
 </mapper>

@@ -69,7 +69,7 @@ public abstract class BaseController {
      * 获得 HttpServletRequest 对象，在服务响应时间可以获得
      * @return HttpServletRequest
      */
-    private HttpServletRequest getRequest() {
+    protected HttpServletRequest getRequest() {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (attributes == null) {
             throw new RuntimeException("非法 HTTP 请求");

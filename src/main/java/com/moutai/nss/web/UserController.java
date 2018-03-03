@@ -1,15 +1,10 @@
 package com.moutai.nss.web;
 
 import com.moutai.nss.base.BaseController;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.jws.WebParam;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @Description:
@@ -18,16 +13,6 @@ import java.util.List;
  */
 @RestController
 public class UserController extends BaseController {
-
-    @GetMapping(value = "/login")
-    public String userLogin() {
-        return "testname";
-    }
-
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public ModelAndView userLogout() {
-        return new ModelAndView("");
-    }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ModelAndView userRegister() {

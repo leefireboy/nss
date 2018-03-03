@@ -2,6 +2,8 @@ server:
   port: 8080
   context-path: /nss
   display-name: NSS MOUTAI TIANJIN
+  session:
+    timeout: 3600
 
 # Spring configuration
 spring:

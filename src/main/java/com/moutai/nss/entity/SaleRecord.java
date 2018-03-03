@@ -21,23 +21,29 @@ public class SaleRecord {
 
     private String companyShortName;
 
-    private Long artivityId;
+    private Long activityId;
 
     private String remark;
 
+    private Long createId;
+
     private Date createTime;
+
+    private Long modifyId;
+
+    private Date modifyTime;
 
     private Integer deleteFlag;
 
     public SaleRecord() {
     }
 
-    public SaleRecord(String customer, String idCard, Long companyId, String companyShortName, Long artivityId) {
+    public SaleRecord(String customer, String idCard, Long companyId, String companyShortName, Long activityId) {
         this.customer = customer;
         this.idCard = idCard;
         this.companyId = companyId;
         this.companyShortName = companyShortName;
-        this.artivityId = artivityId;
+        this.activityId = activityId;
     }
 
     public Long getId() {
@@ -88,12 +94,12 @@ public class SaleRecord {
         this.companyShortName = companyShortName;
     }
 
-    public Long getArtivityId() {
-        return artivityId;
+    public Long getActivityId() {
+        return activityId;
     }
 
-    public void setArtivityId(Long artivityId) {
-        this.artivityId = artivityId;
+    public void setActivityId(Long activityId) {
+        this.activityId = activityId;
     }
 
     public String getRemark() {
@@ -104,12 +110,36 @@ public class SaleRecord {
         this.remark = remark;
     }
 
+    public Long getCreateId() {
+        return createId;
+    }
+
+    public void setCreateId(Long createId) {
+        this.createId = createId;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Long getModifyId() {
+        return modifyId;
+    }
+
+    public void setModifyId(Long modifyId) {
+        this.modifyId = modifyId;
+    }
+
+    public Date getModifyTime() {
+        return modifyTime;
+    }
+
+    public void setModifyTime(Date modifyTime) {
+        this.modifyTime = modifyTime;
     }
 
     public Integer getDeleteFlag() {
@@ -129,9 +159,12 @@ public class SaleRecord {
                 ", mobilePhone='" + mobilePhone + '\'' +
                 ", companyId=" + companyId +
                 ", companyShortName='" + companyShortName + '\'' +
-                ", artivityId=" + artivityId +
+                ", activityId=" + activityId +
                 ", remark='" + remark + '\'' +
+                ", createId=" + createId +
                 ", createTime=" + createTime +
+                ", modifyId=" + modifyId +
+                ", modifyTime=" + modifyTime +
                 ", deleteFlag=" + deleteFlag +
                 '}';
     }

@@ -13,6 +13,8 @@ public class User {
 
     private String name;
 
+    private String password;
+
     private Integer sex;
 
     private String mobilePhone;
@@ -21,7 +23,7 @@ public class User {
 
     private Long companyId;
 
-    private String companyName;
+    private String companyShortName;
 
     private String remark;
 
@@ -35,11 +37,11 @@ public class User {
     public User() {
     }
 
-    public User(String name, Integer sex, Long companyId, String companyName) {
+    public User(String name, Integer sex, Long companyId, String companyShortName) {
         this.name = name;
         this.sex = sex;
         this.companyId = companyId;
-        this.companyName = companyName;
+        this.companyShortName = companyShortName;
     }
 
     public Long getId() {
@@ -56,6 +58,15 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Integer getSex() {
@@ -90,12 +101,12 @@ public class User {
         this.companyId = companyId;
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public String getCompanyShortName() {
+        return companyShortName;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void setCompanyShortName(String companyShortName) {
+        this.companyShortName = companyShortName;
     }
 
     public String getRemark() {
@@ -137,22 +148,18 @@ public class User {
 
         User user = (User) o;
 
-        if (id != null ? !id.equals(user.id) : user.id != null) return false;
         if (name != null ? !name.equals(user.name) : user.name != null) return false;
         if (sex != null ? !sex.equals(user.sex) : user.sex != null) return false;
         if (mobilePhone != null ? !mobilePhone.equals(user.mobilePhone) : user.mobilePhone != null) return false;
-        if (companyId != null ? !companyId.equals(user.companyId) : user.companyId != null) return false;
-        return companyName != null ? companyName.equals(user.companyName) : user.companyName == null;
+        return companyId != null ? companyId.equals(user.companyId) : user.companyId == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
+        int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (sex != null ? sex.hashCode() : 0);
         result = 31 * result + (mobilePhone != null ? mobilePhone.hashCode() : 0);
         result = 31 * result + (companyId != null ? companyId.hashCode() : 0);
-        result = 31 * result + (companyName != null ? companyName.hashCode() : 0);
         return result;
     }
 
@@ -161,11 +168,12 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
                 ", sex=" + sex +
                 ", mobilePhone='" + mobilePhone + '\'' +
                 ", isManagement=" + isManagement +
                 ", companyId=" + companyId +
-                ", companyName='" + companyName + '\'' +
+                ", companyShortName='" + companyShortName + '\'' +
                 ", remark='" + remark + '\'' +
                 ", createTime=" + createTime +
                 ", modifyTime=" + modifyTime +

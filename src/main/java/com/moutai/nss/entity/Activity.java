@@ -3,7 +3,7 @@ package com.moutai.nss.entity;
 import java.util.Date;
 
 /**
- * @Description:
+ * @Description: 活动
  * @Auther: LEE
  * @Date: Create in 2018/2/25 9:49
  */

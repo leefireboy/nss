@@ -13,6 +13,8 @@ public class Company {
 
     private String name;
 
+    private String password;
+
     private String shortName;
 
     private Date createTime;
@@ -41,6 +43,14 @@ public class Company {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getShortName() {
@@ -90,6 +100,7 @@ public class Company {
         return "Company{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
                 ", shortName='" + shortName + '\'' +
                 ", createTime=" + createTime +
                 ", deleteFlag=" + deleteFlag +
