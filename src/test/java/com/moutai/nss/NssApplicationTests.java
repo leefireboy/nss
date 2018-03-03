@@ -1,5 +1,6 @@
 package com.moutai.nss;
 
+import com.moutai.nss.web.test;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +12,7 @@ public class NssApplicationTests {
 
 	@Test
 	public void contextLoads() {
+//		test.findAllStore();
 	}
 
 }
