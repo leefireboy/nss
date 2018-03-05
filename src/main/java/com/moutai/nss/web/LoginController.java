@@ -28,24 +28,25 @@ public class LoginController extends BaseController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView userLogin(@Valid LoginParams params) {
         logger.info("用户登录参数： " + params);
         ModelAndView mv = new ModelAndView();
         User user = userService.queryByLoginParams(params);
 
-        if (user.getPassword().equals(MD5Utils.getMD5(params.getLoginPassword()))) {
+        if (user != null && user.getPassword().equals(MD5Utils.getMD5(params.getLoginPassword()))) {
             login(user);
             mv.setViewName("index");
             return mv;
         } else {
-            mv.setViewName("login");
-            mv.addObject("message", "用户密码不正确，请检查后重新输入！");
+            mv.setViewName("signIn");
+            mv.addObject("message", "用户名或密码错误！");
+            mv.addObject("loginName", params.getLoginName());
             return mv;
         }
     }
 
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
     public ModelAndView userLogout() {
         logout();
         return new ModelAndView("login");

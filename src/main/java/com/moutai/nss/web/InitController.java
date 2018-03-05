@@ -13,9 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class InitController {
 
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    @RequestMapping(value = "/init", method = RequestMethod.GET)
     public ModelAndView init() {
-        return new ModelAndView("login");
+        return new ModelAndView("signIn");
     }
 
 }

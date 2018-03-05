@@ -1,6 +1,7 @@
 package com.moutai.nss.web;
 
 import com.moutai.nss.base.BaseController;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,11 +18,6 @@ public class UserController extends BaseController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ModelAndView userRegister() {
         return null;
-    }
-
-    @RequestMapping(value = "/index1", method = RequestMethod.GET)
-    public ModelAndView userIndex() {
-        return new ModelAndView("index");
     }
 
     @RequestMapping(value = "/addSalerecord", method = RequestMethod.GET)
@@ -48,4 +44,10 @@ public class UserController extends BaseController {
         mv.addObject("storeList", test.findAllStore());
         return mv;
     }
+
+    @GetMapping(value = "/test")
+    public String test() {
+        return "test";
+    }
+
 }
