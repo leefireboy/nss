@@ -28,6 +28,11 @@ public class UserController extends BaseController {
         return mv;
     }
 
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public ModelAndView index() {
+        return new ModelAndView("index");
+    }
+
     @RequestMapping(value = "/actList", method = RequestMethod.GET)
     public ModelAndView userActList() {
         return new ModelAndView("actList");
