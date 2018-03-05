@@ -19,7 +19,7 @@ CREATE TABLE user (
   UNIQUE KEY idx_name_mobile_phone (name, mobile_phone)
 ) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8 COMMENT '用户表';
 
-INSERT INTO user(name, password, sex, is_management, company_id, company_short_name) VALUES
+INSERT IGNORE INTO user(name, password, sex, is_management, company_id, company_short_name) VALUES
   ('administrator', '1115a25c522d81c40ff0fe4a569ab09c', 2, 1, 0, 'administrator'),
   ('天津市大通源洲商贸有限公司', '1115a25c522d81c40ff0fe4a569ab09c', 2, 1, 1, '大通源洲'),
   ('天津市澳顺峰烟酒经销有限公司', '1115a25c522d81c40ff0fe4a569ab09c', 2, 1, 2, '澳顺峰'),

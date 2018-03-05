@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Required meta tags -->
@@ -25,16 +25,16 @@
         <div class="signin-logo tx-center tx-16 tx-bold tx-inverse">茅台·天津 | 活动登记系统</div>
         <div class="tx-center mg-b-20">MouTai·TianJin | Activity recording system</div>
         <div class="tx-center mg-b-40"><span class="tx-center tx-info tx-normal"> 用户登录</span></div>
-        <form th:action="@{/login}" method="post" id="signInForm" onsubmit="return valiForm();">
+        <form th:action="@{/login}" method="get" id="signInForm" onsubmit="return valiForm();">
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="请输入用户名/手机号" name="loginName" onblur="valiName()"/>
+                <input type="text" class="form-control" placeholder="请输入用户名/手机号" name="name" onblur="valiName()"/>
                 <input type="hidden" name="type"/>
                 <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px; display: none;"
                       id="nameInfo"/>
             </div><!-- form-group -->
             <div class="form-group">
                 <input type="password" class="form-control" id="pwd" placeholder="请输入密码" onblur="valiPwd()"/>
-                <input type="hidden" name="loginPassword"/>
+                <input type="hidden" name="md5Pwd"/>
                 <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px; display: none;"
                       id="pwdInfo"/>
                 <a href="" class="tx-info tx-12 d-block mg-t-10">忘记密码?</a>
@@ -54,8 +54,8 @@
     $(function(){
         $("#pwd").blur(function(){
             var pwd = $(this).val();
-            var loginPassword = $.md5(pwd);
-            $('input[name="loginPassword"]').val(loginPassword);
+            var md5Pwd = $.md5(pwd);
+            $('input[name="md5Pwd"]').val(md5Pwd);
         });
     });
 
@@ -63,25 +63,22 @@
 
     // 验证用户名是否为空
     function valiName() {
-        var loginName = $('input[name="loginName"]');
+        var name = $('input[name="name"]');
         var nameInfo = $("#nameInfo");
         var patternName = /^[\u4E00-\u9FA5]{1,6}$/;
-        var patternABC = /^[A-Za-z0-9]+$/;
         var patternPhone = /^1[34578]\d{9}$/;
         nameInfo.html("");
-        if (loginName.val() == null || ($.trim(loginName.val())) == "") {
+        if (name.val() == null || ($.trim(name.val())) == "") {
             nameInfo.html("用户名/手机号不能为空！");
-            loginName.addClass("is-invalid");
+            name.addClass("is-invalid");
             $("#nameInfo").css('display', 'block');
             return false;
-        } else if(patternName.test(loginName.val())) {
+        } else if(patternName.test(name.val())) {
             $('input[name="type"]').val("0");
-        } else if(patternABC.test(loginName.val())) {
-            $('input[name="type"]').val("0");
-        }else if(patternPhone.test(loginName.val())) {
+        } else if(patternPhone.test(name.val())) {
             $('input[name="type"]').val("1");
         } else {
-            loginName.removeClass("is-invalid");
+            name.removeClass("is-invalid");
         }
         return true;
     }
