@@ -84,7 +84,7 @@ public class ActivityController extends BaseController {
      */
     @RequestMapping(value = "/activity/list", method = RequestMethod.GET)
     public ModelAndView listByName(String name, Page page) {
-        ModelAndView mv = new ModelAndView("");
+        ModelAndView mv = new ModelAndView("index");
         Map<String, Object> map = activityService.queryByParams(name, page);
         mv.addObject("list", map.get("activities"));
         mv.addObject("page", map.get("page"));

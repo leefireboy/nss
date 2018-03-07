@@ -84,7 +84,7 @@
         SELECT <include refid="col"/> FROM activity WHERE delete_flag=0 ORDER BY id ASC
     </select>
 
-    <select id="count">
+    <select id="count" resultType="int">
         SELECT COUNT(*) FROM activity WHERE delete_flag=0
     </select>
 

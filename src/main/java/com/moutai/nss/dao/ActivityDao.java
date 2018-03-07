@@ -2,6 +2,7 @@ package com.moutai.nss.dao;
 
 import com.moutai.nss.base.BaseDao;
 import com.moutai.nss.entity.Activity;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -25,6 +26,6 @@ public interface ActivityDao extends BaseDao<Activity> {
      * @param limit
      * @return
      */
-    List<Activity> selectByParams(String name, Integer offset, Integer limit);
+    List<Activity> selectByParams(@Param("name") String name, @Param("offset") Integer offset, @Param("limit") Integer limit);
 
 }
