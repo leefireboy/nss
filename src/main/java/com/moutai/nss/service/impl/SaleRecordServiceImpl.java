@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,8 +25,6 @@ import java.util.List;
  */
 @Service
 public class SaleRecordServiceImpl extends BaseService implements SaleRecordService {
-
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private SaleRecordDao saleRecordDao;
@@ -39,56 +38,29 @@ public class SaleRecordServiceImpl extends BaseService implements SaleRecordServ
         saleRecord.setModifyId(user.getId());
         saleRecord.setCompanyId(user.getCompanyId());
         saleRecord.setCompanyShortName(user.getCompanyShortName());
-
-        try {
-
-            if (getBaseDao().insert(saleRecord) == 1) {
-                return StatusEnum.SUCCESS;
-            } else {
-                return StatusEnum.FAIL;
-            }
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
-            return StatusEnum.FAIL;
-        }
+        return getCUDStatus(getBaseDao().insert(saleRecord));
     }
 
     @Override
     public StatusEnum remove(Long id) {
-        // 只有管理员权限才可以进行删除
-//        User user = getLoginUser();
-//        if (user.getIsManagement() == 0) {
-//            return StatusEnum.NO_AUTHORITY;
-//        }
-
-        try {
-            if (getBaseDao().delete(id) == 1) {
-                return StatusEnum.SUCCESS;
-            } else {
-                return StatusEnum.FAIL;
-            }
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
-            return StatusEnum.FAIL;
+        // 管理员可以进行删除操作
+        if (isManagement()) {
+            return getCUDStatus(getBaseDao().delete(id));
+        } else {
+            return StatusEnum.NO_AUTHORITY;
         }
     }
 
     @Override
     public StatusEnum modify(SaleRecord saleRecord) {
-        try {
-        // 登录完成后使用
-//            User user = getLoginUser();
-//            saleRecord.setModifyId(user.getId());
-//            saleRecord.setModifyTime(new Date());
-
-            if (getBaseDao().update(saleRecord) == 1) {
-                return StatusEnum.SUCCESS;
-            } else {
-                return StatusEnum.FAIL;
-            }
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
-            return StatusEnum.FAIL;
+        // 管理员可以进行修改操作
+        if (isManagement()) {
+            User user = getLoginUser();
+            saleRecord.setModifyId(user.getId());
+            saleRecord.setModifyTime(new Date());
+            return getCUDStatus(getBaseDao().update(saleRecord));
+        } else {
+            return StatusEnum.NO_AUTHORITY;
         }
     }
 
@@ -104,7 +76,7 @@ public class SaleRecordServiceImpl extends BaseService implements SaleRecordServ
 
     @Override
     protected BaseDao<SaleRecord> getBaseDao() {
-        return saleRecordDao;
+        return this.saleRecordDao;
     }
 
 }

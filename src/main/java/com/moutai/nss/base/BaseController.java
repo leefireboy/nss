@@ -1,6 +1,8 @@
 package com.moutai.nss.base;
 
 import com.moutai.nss.entity.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -17,6 +19,8 @@ import java.util.Set;
  */
 @Controller
 public abstract class BaseController {
+
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public static final String LOGIN_USER_SESSION = "Access-User-Session";
 

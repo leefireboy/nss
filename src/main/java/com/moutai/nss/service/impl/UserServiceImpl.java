@@ -64,7 +64,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
     @Override
     protected BaseDao<User> getBaseDao() {
-        return userDao;
+        return this.userDao;
     }
 
 }
