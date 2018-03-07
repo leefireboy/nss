@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import static com.moutai.nss.base.BaseController.LOGIN_USER_SESSION;
 
 /**
- * @Description:
+ * @Description: 用户登录拦截器
  * @Auther: LEE
  * @Date: Create in 2018/3/5 8:48
  */

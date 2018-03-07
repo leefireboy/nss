@@ -5,7 +5,7 @@
 <mapper namespace="com.moutai.nss.dao.ActivityDao">
 
     <sql id="col">
-        id, `name`, start_time, end_time, create_id, create_time, modify_id, modify_time, delete_flag
+        id, `name`, start_time, end_time, remark, create_id, create_time, modify_id, modify_time, delete_flag
     </sql>
 
     <sql id="insert_valid_col">
@@ -14,6 +14,7 @@
             <if test="name != null">`name`,</if>
             <if test="startTime != null">start_time,</if>
             <if test="endTime != null">end_time,</if>
+            <if test="remark != null">remark,</if>
             <if test="createId != null">create_id,</if>
             <if test="createTime != null">create_time,</if>
             <if test="modifyId != null">modify_id,</if>
@@ -28,6 +29,7 @@
             <if test="name != null">#{name},</if>
             <if test="startTime != null">#{startTime},</if>
             <if test="endTime != null">#{endTime},</if>
+            <if test="remark != null">#{remark},</if>
             <if test="createId != null">#{createId},</if>
             <if test="createTime != null">#{createTime},</if>
             <if test="modifyId != null">#{modifyId},</if>
@@ -42,6 +44,7 @@
             <if test="name != null">`name`=#{name},</if>
             <if test="startTime != null">start_time=#{startTime},</if>
             <if test="endTime != null">end_time=#{endTime},</if>
+            <if test="remark != null">remark=#{remark},</if>
             <if test="createId != null">create_id=#{createId},</if>
             <if test="createTime != null">create_time=#{createTime},</if>
             <if test="modifyId != null">modify_id=#{modifyId},</if>
@@ -74,11 +77,23 @@
     </update>
 
     <select id="selectById" resultType="Activity">
-        SELECT <include refid="col"/> FROM activity WHERE id=#{id}
+        SELECT <include refid="col"/> FROM activity WHERE id=#{id} AND delete_flag=0
     </select>
 
     <select id="selectAll" resultType="Activity">
-        SELECT <include refid="col"/> FROM activity
+        SELECT <include refid="col"/> FROM activity WHERE delete_flag=0 ORDER BY id ASC
+    </select>
+
+    <select id="count">
+        SELECT COUNT(*) FROM activity WHERE delete_flag=0
+    </select>
+
+    <select id="selectByParams" resultType="Activity">
+        SELECT <include refid="col"/> FROM activity WHERE delete_flag=0
+        <if test="name != null">
+            AND name LIKE '%${name}%'
+        </if>
+        ORDER BY id ASC
     </select>
 
 </mapper>

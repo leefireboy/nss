@@ -36,12 +36,12 @@ public class LoginController extends BaseController {
 
         if (user != null && user.getPassword().equals(MD5Utils.getMD5(params.getLoginPassword()))) {
             login(user);
-            mv.setViewName("index");
+            mv.setViewName("redirect:/activity/list");
             return mv;
         } else {
             mv.setViewName("signIn");
             mv.addObject("message", "用户名或密码错误！");
-            mv.addObject("loginName", params.getLoginName());
+            mv.addObject("user", user);
             return mv;
         }
     }

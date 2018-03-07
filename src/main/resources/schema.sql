@@ -8,7 +8,7 @@ CREATE TABLE user (
   password VARCHAR(32) NOT NULL COMMENT '用户密码',
   sex TINYINT NOT NULL DEFAULT 1 COMMENT '用户性别 0:女 1:男 2:其他',
   mobile_phone VARCHAR(11) NOT NULL DEFAULT '00000000000' COMMENT '手机号',
-  is_management TINYINT NOT NULL DEFAULT 0 COMMENT '是否管理员 0：否 1：是',
+  is_management TINYINT NOT NULL DEFAULT 0 COMMENT '是否管理员 0：否 1：是 2：超级管理员',
   company_id BIGINT NOT NULL COMMENT '公司ID',
   company_short_name VARCHAR(120) NOT NULL COMMENT '公司简称',
   remark VARCHAR(255) NOT NULL DEFAULT '...' COMMENT '备注',
@@ -20,7 +20,7 @@ CREATE TABLE user (
 ) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8 COMMENT '用户表';
 
 INSERT IGNORE INTO user(name, password, sex, is_management, company_id, company_short_name) VALUES
-  ('administrator', '1115a25c522d81c40ff0fe4a569ab09c', 2, 1, 0, 'administrator'),
+  ('administrator', '1115a25c522d81c40ff0fe4a569ab09c', 2, 2, 0, 'administrator'),
   ('天津市大通源洲商贸有限公司', '1115a25c522d81c40ff0fe4a569ab09c', 2, 1, 1, '大通源洲'),
   ('天津市澳顺峰烟酒经销有限公司', '1115a25c522d81c40ff0fe4a569ab09c', 2, 1, 2, '澳顺峰'),
   ('天津市华溢睿智酒类销售有限公司', '1115a25c522d81c40ff0fe4a569ab09c', 2, 1, 3, '华溢睿智'),
@@ -101,6 +101,7 @@ CREATE TABLE activity (
   name VARCHAR(60) NOT NULL COMMENT '活动名',
   start_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '开始时间',
   end_time TIMESTAMP NOT NULL COMMENT '结束时间',
+  remark VARCHAR(255) NOT NULL DEFAULT '...' COMMENT '备注',
   create_id BIGINT NOT NULL COMMENT '创建人ID',
   create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   modify_id BIGINT NOT NULL DEFAULT 0 COMMENT '修改人ID',

@@ -15,43 +15,14 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class UserController extends BaseController {
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ModelAndView userRegister() {
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    public ModelAndView add() {
         return null;
-    }
-
-    @RequestMapping(value = "/addSalerecord", method = RequestMethod.GET)
-    public ModelAndView userAddSalerecord() {
-
-        ModelAndView mv = new ModelAndView("addSalerecord");
-        mv.addObject("actList", test.findAllAct());
-        return mv;
-    }
-
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public ModelAndView index() {
-        return new ModelAndView("index");
-    }
-
-    @RequestMapping(value = "/actList", method = RequestMethod.GET)
-    public ModelAndView userActList() {
-        return new ModelAndView("actList");
-    }
-
-    @RequestMapping(value = "/signIn", method = RequestMethod.GET)
-    public ModelAndView userSignIn() {
-        return new ModelAndView("signIn");
-    }
-
-    @RequestMapping(value = "/signUp", method = RequestMethod.GET)
-    public ModelAndView userSignUp() {
-        ModelAndView mv = new ModelAndView("signUp");
-        mv.addObject("storeList", test.findAllStore());
-        return mv;
     }
 
     @GetMapping(value = "/test")
     public String test() {
+        logger.info("test baseController logger");
         return "test";
     }
 

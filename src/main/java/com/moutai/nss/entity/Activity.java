@@ -17,6 +17,8 @@ public class Activity {
 
     private Date endTime;
 
+    private String remark;
+
     private Long createId;
 
     private Date createTime;
@@ -68,6 +70,14 @@ public class Activity {
         this.endTime = endTime;
     }
 
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
     public Long getCreateId() {
         return createId;
     }
@@ -115,6 +125,7 @@ public class Activity {
                 ", name='" + name + '\'' +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
+                ", remark='" + remark + '\'' +
                 ", createId=" + createId +
                 ", createTime=" + createTime +
                 ", modifyId=" + modifyId +
