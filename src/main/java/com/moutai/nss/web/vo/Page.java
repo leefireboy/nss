@@ -27,6 +27,10 @@ public class Page {
     public Page() {
     }
 
+    public Page(Integer pageNo) {
+        this(pageNo, null);
+    }
+
     public Page(Integer pageNo, Integer pageTotal) {
         this(pageNo, DEFAULT_PAGE_NO, pageTotal);
     }

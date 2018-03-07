@@ -59,6 +59,9 @@ public class ActivityServiceImpl extends BaseService<Activity> implements Activi
 
     @Override
     public Map<String, Object> queryByParams(String name, Page page) {
+        if (page.getPageNo() == null) {
+            page = new Page(1);
+        }
         // 计算总页数
         int count = activityDao.count();
         int pageTotal =  count / page.getPageSize() + (count % page.getPageSize() == 0 ? 0 : 1);
