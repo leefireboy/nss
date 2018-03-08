@@ -24,7 +24,11 @@
     <div class="login-wrapper wd-300 wd-xs-350 pd-25 pd-xs-40 bg-white">
         <div class="signin-logo tx-center tx-16 tx-bold tx-inverse">茅台·天津 | 活动登记系统</div>
         <div class="tx-center mg-b-20">MouTai·TianJin | Activity recording system</div>
-        <div class="tx-center mg-b-40"><span class="tx-center tx-info tx-normal"> 用户登录</span></div>
+        <div class="tx-center mg-b-10">
+            <span class="tx-center tx-info tx-normal"> 用户登录</span><br/>
+            <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px;"
+                  id="loginInfo" th:text="${message}"/>
+        </div>
         <form th:action="@{/login}" method="post" id="signInForm" onsubmit="return valiForm();">
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="请输入用户名/手机号" name="loginName" onblur="valiName()"/>

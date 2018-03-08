@@ -19,7 +19,7 @@ public class LoginInterceptorConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         super.addInterceptors(registry);
-        registry.addInterceptor(userLoginInterceptor).addPathPatterns("/**").excludePathPatterns("/init", "/login");
+        registry.addInterceptor(userLoginInterceptor).addPathPatterns("/**").excludePathPatterns("/init", "/login", "/addActivity");
     }
 
 }

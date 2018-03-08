@@ -60,7 +60,7 @@ CREATE TABLE company (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT '公司表';
 
 # 初始化公司表数据
-INSERT INTO company(name, short_name) VALUES
+INSERT IGNORE INTO company(name, short_name) VALUES
   ('天津市大通源洲商贸有限公司','大通源洲'),('天津市澳顺峰烟酒经销有限公司','澳顺峰'),
   ('天津市华溢睿智酒类销售有限公司','华溢睿智'),('天津鹏宇九缘商贸有限公司','鹏宇九缘'),
   ('天津国酒茅台有限公司','天津自营店'),('天津市星洲永耀商贸有限公司','星洲永耀'),

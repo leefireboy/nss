@@ -31,28 +31,28 @@
 <div class="sl-logo"><a href=""><img th:src="@{/picture/mt_logo_wh.jpg}" style="width: 30px; height: 30px;"/> <span
         style="font-size: 18px">茅台·活动登记系统</span></a></div>
 <div class="sl-sideleft">
-    <div class="input-group input-group-search">
-        <input type="search" name="search" class="form-control" placeholder="Search"/>
-        <span class="input-group-btn">
-          <button class="btn"><i class="fa fa-search"></i></button>
-        </span><!-- input-group-btn -->
-    </div><!-- input-group -->
+    <!--<div class="input-group input-group-search">-->
+        <!--<input type="search" name="search" class="form-control" placeholder="Search"/>-->
+        <!--<span class="input-group-btn">-->
+          <!--<button class="btn"><i class="fa fa-search"></i></button>-->
+        <!--</span>&lt;!&ndash; input-group-btn &ndash;&gt;-->
+    <!--</div>&lt;!&ndash; input-group &ndash;&gt;-->
 
     <label class="sidebar-label">导航栏</label>
     <div class="sl-sideleft-menu">
-        <a th:href="@{index1}" class="sl-menu-link active">
+        <a th:href="@{/activity/list}" class="sl-menu-link active">
             <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-paper-outline tx-20"></i>
                 <span class="menu-item-label">活动项列表</span>
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
-        <a th:href="@{addSalerecord}" class="sl-menu-link">
+        <a th:href="@{/addSalerecord}" class="sl-menu-link">
             <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
                 <span class="menu-item-label">新增销售记录</span>
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
-        <a th:href="@{setting}" class="sl-menu-link">
+        <a th:href="@{/setting}" class="sl-menu-link">
             <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-gear-outline tx-24"></i>
                 <span class="menu-item-label">设置</span>
@@ -66,7 +66,7 @@
             <li class="nav-item"><a href="form-wizards.html" class="nav-link">Form Wizards</a></li>
             <li class="nav-item"><a href="form-editor-text.html" class="nav-link">Text Editor</a></li>
         </ul>
-        <a th:href="@{about}" class="sl-menu-link">
+        <a th:href="@{/about}" class="sl-menu-link">
             <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
                 <span class="menu-item-label">关于</span>
@@ -88,7 +88,7 @@
         <nav class="nav">
             <div class="dropdown">
                 <a href="" class="nav-link nav-link-profile" data-toggle="dropdown">
-                    <span class="logged-name">海津皇冠 |<span class="hidden-md-down"> 海大富</span></span>
+                    <span class="logged-name" th:text="${user.companyShortName} + ' | ' + ${user.name}">海津皇冠 | 皇冠</span>
                     <img th:src="@{/picture/mt_logo_wh.jpg}" class="wd-32 rounded-circle" alt=""/>
                 </a>
                 <div class="dropdown-menu dropdown-menu-header wd-200">
@@ -98,7 +98,7 @@
                         <li><a href=""><i class="icon ion-ios-download-outline"></i> Downloads</a></li>
                         <li><a href=""><i class="icon ion-ios-star-outline"></i> Favorites</a></li>
                         <li><a href=""><i class="icon ion-ios-folder-outline"></i> Collections</a></li>
-                        <li><a th:href="@{/signIn}"><i class="icon ion-power"></i> Sign Out</a></li>
+                        <li><a th:href="@{/logout}"><i class="icon ion-power"></i> Sign Out</a></li>
                     </ul>
                 </div><!-- dropdown-menu -->
             </div><!-- dropdown -->
@@ -121,13 +121,26 @@
     </nav>
 
     <div class="sl-pagebody">
-        <!--<div class="sl-page-title">-->
-            <!--<h5>Data Table</h5>-->
-            <!--<p>DataTables is a plug-in for the jQuery Javascript library.</p>-->
-        <!--</div>&lt;!&ndash; sl-page-title &ndash;&gt;-->
+
         <div class="card pd-20 pd-sm-40">
             <h6 class="card-body-title">活动项目列表</h6>
-            <p class="mg-b-20 mg-sm-b-30">The list of all activities list.</p>
+            <p class="mg-b-20 mg-sm-b-30">The list of all activities.</p>
+            <form th:action="@{/activity/list}" method="post" onsubmit="return valiForm();">
+                <div class="row">
+                    <div class="col-lg-3 mg-b-10">
+                        <div class="input-group">
+                            <input type="text" class="form-control clo-lg-6" name="keywords"
+                                   placeholder="按活动名称搜索..."/>
+                            <input type="hidden" id="type"/>
+                            <span class="input-group-btn">
+                                <button class="btn bd bg-white tx-gray-600" type="submit"><i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div><!-- input-group -->
+                    </div><!-- col-4 -->
+                </div><!-- row -->
+            </form>
+
             <div class="table-responsive">
                 <table class="table table-hover table-bordered mg-b-0">
                     <thead class="bg-info">
@@ -139,23 +152,17 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td><a th:href="@{actList}">狗年·情暖中国年</a></td>
-                        <td style="text-align: center">2018/03/01--2018/03/28</td>
-                        <td style="text-align: center">查看详情</td>
-                        <td style="text-align: center"><span style="color: green">有效</span></td>
-                    </tr>
-                    <tr>
-                        <td>狗年·情暖中国年</td>
-                        <td style="text-align: center">2018/02/07--2018/02/14</td>
-                        <td style="text-align: center">查看详情</td>
-                        <td style="text-align: center"><span style="color: red">已过期</span></td>
-                    </tr>
-                    <tr>
-                        <td>狗年·情暖中国年</td>
-                        <td style="text-align: center">2018/02/07--2018/02/14</td>
-                        <td style="text-align: center">查看详情</td>
-                        <td style="text-align: center"><span style="color: red">已过期</span></td>
+                    <tr th:each="act: ${list}">
+                        <td style="text-align: center"><a th:href="@{/cus/{id}(id=${act.id})}"
+                                                          th:text="${act.name}"></a>
+                        </td>
+                        <td style="text-align: center" th:text="${#dates.format(act.startTime,'yyyy/MM/dd')}+ ' -- ' +${#dates.format(act.endTime,'yyyy/MM/dd')}">
+                            2018/03/01--2018/03/28
+                        </td>
+                        <td style="text-align: center"><a th:href="@{/act/{id}(id=${act.id})}">查看详情</a></td>
+                        <td style="text-align: center"><span style="color: green" th:if="${new java.util.Date()} &gt; ${act.startTime} and ${new java.util.Date()} &lt; ${act.endTime}">有效</span>
+                            <span style="color: red" th:unless="${new java.util.Date()} &gt; ${act.startTime} and ${new java.util.Date()} &lt; ${act.endTime}">已过期</span>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -165,26 +172,55 @@
             <div class="ht-80 bd d-flex align-items-center justify-content-center">
                 <nav aria-label="Page navigation">
                     <ul class="pagination pagination-basic mg-b-0">
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item disabled"><span class="page-link">...</span></li>
-                        <li class="page-item"><a class="page-link" href="#">10</a></li>
+                        <li th:class="${page.pageNo eq 1} ? 'page-item' : 'page-item'">
+                            <a class="page-link" aria-label="First" th:if="${page.pageNo eq 1}" href="#">
+                                <i class="fa fa-angle-double-left"></i>
+                            </a>
+                            <a class="page-link" aria-label="First" th:if="${page.pageNo ne 1} and ${page.pageNo &lt; 10}" th:href="@{/activity/list(pageNo=1)}">
+                                <i class="fa fa-angle-double-left"></i>
+                            </a>
+                            <a class="page-link" aria-label="First" th:if="${page.pageNo &gt; 11}" th:href="@{/activity/list(pageNo=${page.pageNo-10})}">
+                                <i class="fa fa-angle-double-left"></i>
+                            </a>
+                        </li>
+                        <li th:class="${page.pageNo eq 1} ? 'page-item' : 'page-item'">
+                            <a class="page-link" aria-label="previous" th:if="${page.pageNo eq 1}" href="#">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a class="page-link" aria-label="previous" th:unless="${page.pageNo eq 1}" th:href="@{/activity/list(pageNo=${page.pageNo-1})}">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        </li>
+
+                        <li th:each="currentPage : ${#numbers.sequence(1, page.pageTotal)}" th:class="${currentPage eq page.pageTotal} ? 'page-item active' : 'page-item'">
+                            <a th:if="${page.pageNo eq currentPage}" class="page-link" href="#" th:text="${currentPage}">1</a>
+                            <a th:unless="${page.pageNo eq currentPage}" class="page-link" th:href="@{/activity/list(pageNo=${currentPage})}" th:text="${currentPage}">1</a>
+                        </li>
                         <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
+                            <a class="page-link" aria-label="Next" th:if="${page.pageNo eq page.pageTotal}" href="#">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                            <a class="page-link" aria-label="Next" th:if="${page.pageNo lt page.pageTotal}" th:href="@{/activity/list(pageNo=${page.pageNo+1})}">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         </li>
                         <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Last">
+                            <a class="page-link" aria-label="Last" th:if="${page.pageNo eq page.pageTotal}" href="#">
                                 <i class="fa fa-angle-double-right"></i>
                             </a>
+                            <a class="page-link" aria-label="Last" th:if="${page.pageNo ne page.pageTotal} and ${pageTotal ge (page.pageNo+10)}" th:href="@{/activity/list/(pageNo=${page.pageNo+10})}">
+                                <i class="fa fa-angle-double-right"></i>
+                            </a>
+                            <a class="page-link" aria-label="Last" th:if="${page.pageNo ne page.pageTotal} and ${pageTotal lt (page.pageNo+10)}" th:href="@{/activity/list/(pageNo=${page.pageTotal})}">
+                                <i class="fa fa-angle-double-right"></i>
+                            </a>
+
                         </li>
+
                     </ul>
                 </nav>
             </div>
             <!--页码 end-->
-
         </div><!-- card -->
     </div><!-- sl-pagebody -->
     <footer class="sl-footer">
@@ -205,9 +241,32 @@
 <script th:src="@{/js/starlight.js}"></script>
 
 <script>
-    $(function(){
+    /*<![CDATA[*/
 
-    });
+    function valiForm() {
+        var keywords = $('input[name="keywords"]');
+        var patternName = /^[\u4E00-\u9FA5]{1,6}$/;
+        var patternPhone = /^1[34578]\d{9}$/;
+        var patternIdCard = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+        if (keywords.val() == null || ($.trim(keywords.val())) == "") {
+            return false;
+        } else if (patternName.test(keywords.val())) {
+            // 关键字为姓名，置type为0.
+            $('input[name="type"]').val("0");
+        } else if (patternPhone.test(keywords.val())) {
+            // 关键字为姓名，置type为1.
+            $('input[name="type"]').val("1");
+        } else if (patternIdCard.test(keywords.val())) {
+            // 关键字为姓名，置type为2.
+            $('input[name="type"]').val("2");
+        } else if (keywords.val() != null || ($.trim(keywords.val())) != "") {
+            alert("type=" + $('input[name="type"]').val() + ",keywords=" + keywords.val());
+            return true;
+        }
+        return false;
+    }
+
+    /*]]>*/
 </script>
 
 </body>

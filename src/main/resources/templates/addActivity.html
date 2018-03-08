@@ -32,13 +32,13 @@
 
     <label class="sidebar-label">导航栏</label>
     <div class="sl-sideleft-menu">
-        <a th:href="@{/activity/list}" class="sl-menu-link">
+        <a th:href="@{index}" class="sl-menu-link">
             <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-paper-outline tx-20"></i>
                 <span class="menu-item-label">活动项列表</span>
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
-        <a th:href="@{/addSalerecord}" class="sl-menu-link active">
+        <a th:href="@{addSalerecord}" class="sl-menu-link active">
             <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
                 <span class="menu-item-label">添加销售记录</span>
@@ -110,7 +110,7 @@
 <div class="sl-mainpanel">
     <nav class="breadcrumb sl-breadcrumb">
         <a class="breadcrumb-item" href="index.html">茅台销售登记系统</a>
-        <span class="breadcrumb-item active">新增销售记录</span>
+        <span class="breadcrumb-item active">新增活动信息</span>
     </nav>
 
     <div class="sl-pagebody">
@@ -121,82 +121,36 @@
         <!-- sl-page-title -->
 
         <div class="card pd-20 pd-sm-40 form-layout form-layout-4">
-            <h6 class="card-body-title">新增销售记录</h6>
-            <p class="mg-b-20 mg-sm-b-30">Add Salerecord.</p>
+            <h6 class="card-body-title">新增活动信息</h6>
+            <p class="mg-b-20 mg-sm-b-30">Add activity.</p>
 
             <form th:action="@{/}" method="post" id="addCustForm" onsubmit="return valiForm();">
-                <!--<div class="row">-->
-                    <!--<label class="col-sm-1 form-control-label"> 活动项目:<span-->
-                            <!--class="tx-danger">*</span></label>-->
-                    <!--<div class="col-sm-3 mg-t-10 mg-sm-t-0" id="actDiv">-->
-                        <!--<select class="form-control select2" data-placeholder="请选择活动项目"-->
-                                <!--data-parsley-class-handler="#slWrapper"-->
-                                <!--data-parsley-errors-container="#slErrorContainer"-->
-                                <!--id="act" name="act" onchange="valiAct()">-->
-                            <!--<option label=""></option>-->
-                            <!--<option th:each="item, allAct:${/}" th:value="${item}" th:text="${item}"></option>-->
-                        <!--</select>-->
-                        <!--<span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px;"-->
-                    <!--id="actInfo"/>-->
-                <!--</div>-->
-                <!--</div>&lt;!&ndash; row &ndash;&gt;-->
-                <div class="row mg-t-20">
-                    <label class="col-sm-1 form-control-label"> 客户姓名:<span
+                <div class="row">
+                    <label class="col-sm-1 form-control-label"> 活动名称:<span
                             class="tx-danger">*</span></label>
                     <div class="col-sm-3 mg-t-10 mg-sm-t-0">
-                        <input type="text" class="form-control" placeholder="请输入客户姓名" name="name"
+                        <input type="text" class="form-control" placeholder="请输入活动名称" name="name"
                                onblur="validateName()"/>
                         <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px;"
                               id="nameInfo"/>
                     </div>
                 </div><!-- row -->
-                <div class="row mg-t-20">
-                    <label class="col-sm-1 form-control-label"> 性别:<span
+                <div class="row">
+                    <label class="col-sm-1 form-control-label"> 活动时间:<span
                             class="tx-danger">*</span></label>
-                    <div class="col-sm-1 mg-t-10 mg-sm-t-0">
-                        <label class="rdiobox">
-                            <input name="rdio_sex" type="radio" checked="checked" value="男"/>
-                            <span>男</span>
-                        </label>
-                    </div>
-                    <div class="col-sm-1 mg-t-10 mg-sm-t-0">
-                        <label class="rdiobox">
-                            <input name="rdio_sex" type="radio" value="女"/>
-                            <span>女</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="row mg-t-20">
-                    <label class="col-sm-1 form-control-label"> 手机号码:<span class="tx-danger">*</span></label>
                     <div class="col-sm-3 mg-t-10 mg-sm-t-0">
-                        <input type="text" class="form-control" placeholder="请输入客户手机号码" name="phone"
-                               onblur="validatePhone()"/>
+                        <input type="text" class="form-control" placeholder="请选择活动时间段" name="time" id="time"
+                               onblur="valiTime()"/>
                         <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px;"
-                              id="phoneInfo"/>
+                              id="timeInfo"/>
                     </div>
-                </div>
+                </div><!-- row -->
                 <div class="row mg-t-20">
-                    <label class="col-sm-1 form-control-label"> 身份证号:<span class="tx-danger">*</span></label>
-                    <div class="col-sm-3 mg-t-10 mg-sm-t-0">
-                        <input type="text" class="form-control" placeholder="请输入客户身份证号" name="idCard"
-                               onblur="validateIdCard()"/>
-                        <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px;"
-                              id="idCardInfo"/>
-                    </div>
-                </div>
-                <div class="row mg-t-20">
-                    <label class="col-sm-1 form-control-label"> 购买数量:<span class="tx-danger">*</span></label>
-                    <div class="col-sm-3 mg-t-10 mg-sm-t-0">
-                        <input type="text" class="form-control" placeholder="请输入客户购酒数量" name="amount"
-                               onblur="valiAmount()"/>
-                        <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px;"
-                              id="amountInfo"/>
-                    </div>
-                </div>
-                <div class="row mg-t-20">
-                    <label class="col-sm-1 form-control-label"> 备注:</label>
+                    <label class="col-sm-1 form-control-label"> 活动详情:</label>
                     <div class="col-sm-5 mg-t-10 mg-sm-t-0">
-                        <textarea rows="2" class="form-control" placeholder="请输入备注信息" name="marks"></textarea>
+                        <textarea rows="5" class="form-control" placeholder="请输入活动详情信息" name="marks" onblur="valiDel();"></textarea>
+                        <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px;"
+                              id="marksInfo"/>
                     </div>
                 </div>
                 <div class="form-layout-footer mg-t-30">
@@ -224,46 +178,19 @@
 <script th:src="@{/js/perfect-scrollbar.jquery.js}"></script>
 <script th:src="@{/js/highlight.pack.js}"></script>
 <script th:src="@{/js/select2.min.js}"></script>
+<script th:src="@{/laydate/laydate.js}"></script>
 
 <script th:src="@{/js/starlight.js}"></script>
 <script>
     $(function () {
         'use strict';
 
-        $('.select2').select2({
-            minimumResultsForSearch: Infinity
-        });
-
-        // Select2 by showing the search
-        $('.select2-show-search').select2({
-            minimumResultsForSearch: ''
-        });
-
-        $('.select3').select2({
-            minimumResultsForSearch: Infinity
-        });
-
-        $('.select3-show-search').select3({
-            minimumResultsForSearch: ''
-        });
-
-        // Select2 with tagging support
-        $('.select2-tag').select2({
-            tags: true,
-            tokenSeparators: [',', ' ']
-        });
-
-        // Datepicker
-        $('.fc-datepicker').datepicker({
-            showOtherMonths: true,
-            shouOtherYear: true,
-            selectOterYear: true,
-            selectOtherMonths: true
-        });
-
-
     });
 
+    laydate.render({
+        elem: '#time'
+        ,range: true
+    });
 
 </script>
 
@@ -271,29 +198,13 @@
 
     /*<![CDATA[*/
 
-    // 验证活动项目
-    function valiAct() {
-        var act = $('select[name="act"]');
-        var actInfo = $("#actInfo");
-        var actDiv = $("#actDiv");
-        actInfo.html("");
-        if (act.val() == null || ($.trim(act.val())) == "") {
-            actInfo.html("请选择活动项目");
-            actDiv.addClass("has-danger");
-            return false;
-        } else {
-            actDiv.removeClass("has-danger");
-        }
-        return true;
-    }
-
     // 验证用户名是否为空
     function validateName() {
         var name = $('input[name="name"]');
         var nameInfo = $("#nameInfo");
         nameInfo.html("");
         if (name.val() == null || ($.trim(name.val())) == "") {
-            nameInfo.html("客户姓名不能为空！");
+            nameInfo.html("活动名称不能为空！");
             name.addClass("is-invalid");
             return false;
         } else {
@@ -302,69 +213,43 @@
         return true;
     }
 
-    // 验证客户手机号
-    function validatePhone() {
-        var phone = $('input[name="phone"]');
-        var phoneInfo = $("#phoneInfo");
-        var pattern = /^1[34578]\d{9}$/;
-        phoneInfo.html("");
-        if ((phone.val() == null || ($.trim(phone.val())) == "")) {
-            phoneInfo.html("客户联系方式不能为空！");
-            phone.addClass("is-invalid");
+    // 验证活动时间段是否为空
+    function valiTime() {
+        var time = $('input[name="time"]');
+        var timeInfo = $("#timeInfo");
+        timeInfo.html("");
+        if (time.val() == null || ($.trim(time.val()) == "")) {
+            timeInfo.html("活动时间段不能为空！");
+            time.addClass("is-invalid");
             return false;
-        } else if (!(pattern.test(phone.val().toString()))) {
-            phoneInfo.html("用户手机号格式不正确！");
         } else {
-            phone.removeClass("is-invalid");
+            time.removeClass("is-invalid");
         }
         return true;
     }
 
-    // 验证客户身份证号
-    function validateIdCard() {
-        var idCard = $('input[name="idCard"]');
-        var idCardInfo = $("#idCardInfo");
-        var pattern = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
-        idCardInfo.html("");
-        if (idCard.val() == null || ($.trim(idCard.val())) == "") {
-            idCardInfo.html("客户身份证号不能为空！");
-            idCard.addClass("is-invalid");
-            return false;
-        } else if (!(pattern.test(idCard.val().toString()))) {
-            idCardInfo.html("二代身份证号码格式不正确！");
-            idCard.addClass("is-invalid");
+    // 验证活动详情是否为空
+    function valiDel() {
+        var marks = $('input[name="marks"]');
+        var marksInfo = $("#marksInfo");
+        marksInfo.html("");
+        if (marks.val() == null || ($.trim(marks.val()) == "")) {
+            marksInfo.html("活动时间段不能为空！");
+            marks.addClass("is-invalid");
             return false;
         } else {
-            idCard.removeClass("is-invalid");
-        }
-        return true;
-    }
-
-    // 验证客户购买数量
-    function valiAmount() {
-        var amount = $('input[name="amount"]');
-        var amountInfo = $("#amountInfo");
-        amountInfo.html("");
-        if (amount.val() == null || ($.trim(amount.val()) == "")) {
-            amountInfo.html("客户购酒数量不能为空！");
-            amount.addClass("is-invalid");
-            return false;
-        } else {
-            amount.removeClass("is-invalid");
+            marks.removeClass("is-invalid");
         }
         return true;
     }
 
 
     function valiForm() {
-        if (validateName() && validatePhone() && validateIdCard() && valiAct() && valiAmount()) {
+        if (validateName() && valiTime()) {
             return true;
         } else {
             validateName();
-            validatePhone();
-            validateIdCard();
-            valiAct();
-            valiAmount();
+            valiTime();
             return false;
         }
     }

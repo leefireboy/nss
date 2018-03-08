@@ -26,4 +26,16 @@ public class UserController extends BaseController {
         return "test";
     }
 
+    @RequestMapping(value = "/addSalerecord", method = RequestMethod.GET)
+    public ModelAndView userAddSalerecord() {
+
+        ModelAndView mv = new ModelAndView("addSalerecord");
+        mv.addObject("actList", test.findAllAct());
+        return mv;
+    }
+
+    @RequestMapping(value = "/addActivity", method = RequestMethod.GET)
+    public ModelAndView userAddActivity() {
+        return new ModelAndView("addActivity");
+    }
 }
