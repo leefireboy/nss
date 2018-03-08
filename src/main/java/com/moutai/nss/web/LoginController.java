@@ -41,15 +41,14 @@ public class LoginController extends BaseController {
         } else {
             mv.setViewName("signIn");
             mv.addObject("message", "用户名或密码错误！");
-            mv.addObject("user", user);
             return mv;
         }
     }
 
-    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public ModelAndView userLogout() {
         logout();
-        return new ModelAndView("login");
+        return new ModelAndView("signIn");
     }
 
 }

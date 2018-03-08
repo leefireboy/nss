@@ -20,11 +20,26 @@ public class SaleRecordController extends BaseController {
     @Autowired
     private SaleRecordService saleRecordService;
 
+    /**
+     * 跳转到新增消费记录表单页
+     * @return
+     */
+    @RequestMapping(value = "/saleRecordForm", method = RequestMethod.GET)
+    public ModelAndView form() {
+        ModelAndView mv = new ModelAndView("addSalerecord");
+        return addBaseAttribute(mv);
+    }
+
+    /**
+     * 新增消费记录
+     * @param params
+     * @return
+     */
     @RequestMapping(value = "/saleRecord", method = RequestMethod.POST)
     public ModelAndView add(SaleRecordAddParams params) {
-        ModelAndView mv = new ModelAndView("");
+        ModelAndView mv = new ModelAndView("addSalerecord");
         mv.addObject("status", saleRecordService.save(params).getStatusInfo());
-        return mv;
+        return addBaseAttribute(mv);
     }
 
 }

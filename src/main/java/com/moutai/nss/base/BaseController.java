@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
@@ -52,6 +53,16 @@ public abstract class BaseController {
      */
     protected void logout() {
         getRequest().getSession().removeAttribute(LOGIN_USER_SESSION);
+    }
+
+    /**
+     * 绑定基础数据到 ModelAndView
+     * @param mv ModelAndView
+     * @return
+     */
+    protected ModelAndView addBaseAttribute(ModelAndView mv) {
+        mv.addObject("user", getLoginUser());
+        return mv;
     }
 
     /**
