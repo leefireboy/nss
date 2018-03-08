@@ -38,27 +38,30 @@
                 <span class="menu-item-label">活动项列表</span>
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
+        <a th:href="@{/addActivity}" th:if="${user.isManagement} == 2" class="sl-menu-link">
+            <div class="sl-menu-item">
+                <i class="menu-item-icon icon ion-ios-paper-outline tx-20"></i>
+                <span class="menu-item-label">新增活动项目</span>
+            </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
         <a th:href="@{/addSalerecord}" class="sl-menu-link active">
             <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
                 <span class="menu-item-label">添加销售记录</span>
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
-        <a th:href="@{setting}" class="sl-menu-link">
+        <a href="#" class="sl-menu-link" th:if="${user.isManagement} eq 2">
             <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-gear-outline tx-24"></i>
-                <span class="menu-item-label">设置</span>
+                <span class="menu-item-label">用户管理</span>
                 <i class="menu-item-arrow fa fa-angle-down"></i>
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
-            <li class="nav-item"><a href="form-elements.html" class="nav-link">Form Elements</a></li>
-            <li class="nav-item"><a href="form-layouts.html" class="nav-link">Form Layouts</a></li>
-            <li class="nav-item"><a href="form-validation.html" class="nav-link">Form Validation</a></li>
-            <li class="nav-item"><a href="form-wizards.html" class="nav-link">Form Wizards</a></li>
-            <li class="nav-item"><a href="form-editor-text.html" class="nav-link">Text Editor</a></li>
+            <li class="nav-item"><a th:href="@{/user}" class="nav-link">添加用户</a></li>
+            <li class="nav-item"><a th:href="@{/user/list}" class="nav-link">用户列表</a></li>
         </ul>
-        <a th:href="@{about}" class="sl-menu-link">
+        <a th:href="@{/about}" class="sl-menu-link">
             <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
                 <span class="menu-item-label">关于</span>
@@ -80,7 +83,7 @@
         <nav class="nav">
             <div class="dropdown">
                 <a href="" class="nav-link nav-link-profile" data-toggle="dropdown">
-                    <span class="logged-name">Jane<span class="hidden-md-down"> Doe</span></span>
+                    <span class="logged-name" th:text="${user.companyShortName} + ' | ' + ${user.name}">海津皇冠 | 皇冠</span>
                     <img th:src="@{/picture/mt_logo_wh.jpg}" class="wd-32 rounded-circle" alt=""/>
                 </a>
                 <div class="dropdown-menu dropdown-menu-header wd-200">
@@ -90,7 +93,7 @@
                         <li><a href=""><i class="icon ion-ios-download-outline"></i> Downloads</a></li>
                         <li><a href=""><i class="icon ion-ios-star-outline"></i> Favorites</a></li>
                         <li><a href=""><i class="icon ion-ios-folder-outline"></i> Collections</a></li>
-                        <li><a href=""><i class="icon ion-power"></i> Sign Out</a></li>
+                        <li><a th:href="@{/logout}"><i class="icon ion-power"></i> Sign Out</a></li>
                     </ul>
                 </div><!-- dropdown-menu -->
             </div><!-- dropdown -->
@@ -125,21 +128,21 @@
             <p class="mg-b-20 mg-sm-b-30">Add Salerecord.</p>
 
             <form th:action="@{/}" method="post" id="addCustForm" onsubmit="return valiForm();">
-                <!--<div class="row">-->
-                    <!--<label class="col-sm-1 form-control-label"> 活动项目:<span-->
-                            <!--class="tx-danger">*</span></label>-->
-                    <!--<div class="col-sm-3 mg-t-10 mg-sm-t-0" id="actDiv">-->
-                        <!--<select class="form-control select2" data-placeholder="请选择活动项目"-->
-                                <!--data-parsley-class-handler="#slWrapper"-->
-                                <!--data-parsley-errors-container="#slErrorContainer"-->
-                                <!--id="act" name="act" onchange="valiAct()">-->
-                            <!--<option label=""></option>-->
-                            <!--<option th:each="item, allAct:${/}" th:value="${item}" th:text="${item}"></option>-->
-                        <!--</select>-->
-                        <!--<span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px;"-->
-                    <!--id="actInfo"/>-->
-                <!--</div>-->
-                <!--</div>&lt;!&ndash; row &ndash;&gt;-->
+                <div class="row">
+                    <label class="col-sm-1 form-control-label"> 活动项目:<span
+                            class="tx-danger">*</span></label>
+                    <div class="col-sm-3 mg-t-10 mg-sm-t-0" id="actDiv">
+                        <select class="form-control select2" data-placeholder="请选择活动项目"
+                                data-parsley-class-handler="#slWrapper"
+                                data-parsley-errors-container="#slErrorContainer"
+                                id="act" name="act" onchange="valiAct()">
+                            <option label=""></option>
+                            <option th:each="item, allAct:${actList}" th:value="${item}" th:text="${item}"></option>
+                        </select>
+                        <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px;"
+                    id="actInfo"/>
+                </div>
+                </div><!-- row -->
                 <div class="row mg-t-20">
                     <label class="col-sm-1 form-control-label"> 客户姓名:<span
                             class="tx-danger">*</span></label>

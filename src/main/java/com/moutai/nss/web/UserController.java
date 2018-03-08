@@ -15,9 +15,11 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class UserController extends BaseController {
 
-    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
     public ModelAndView add() {
-        return null;
+        ModelAndView mv = new ModelAndView("addUser");
+        mv.addObject("ccList", test.findAllStore());
+        return addBaseAttribute(mv);
     }
 
     @GetMapping(value = "/test")
@@ -31,11 +33,25 @@ public class UserController extends BaseController {
 
         ModelAndView mv = new ModelAndView("addSalerecord");
         mv.addObject("actList", test.findAllAct());
-        return mv;
+        return addBaseAttribute(mv);
     }
 
     @RequestMapping(value = "/addActivity", method = RequestMethod.GET)
     public ModelAndView userAddActivity() {
-        return new ModelAndView("addActivity");
+
+        ModelAndView mv = new ModelAndView("addActivity");
+        return addBaseAttribute(mv);
+    }
+
+    @RequestMapping(value = "/user/list", method = RequestMethod.GET)
+    public ModelAndView userList() {
+        ModelAndView mv = new ModelAndView("userList");
+        return addBaseAttribute(mv);
+    }
+
+    @RequestMapping(value = "/customerList", method = RequestMethod.GET)
+    public ModelAndView customerList() {
+        ModelAndView mv = new ModelAndView("customerList");
+        return addBaseAttribute(mv);
     }
 }

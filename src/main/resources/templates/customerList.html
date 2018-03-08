@@ -50,42 +50,33 @@
 <div class="sl-logo"><a href=""><img th:src="@{/picture/mt_logo_wh.jpg}" style="width: 30px; height: 30px;"/> <span
         style="font-size: 18px">茅台·活动登记系统</span></a></div>
 <div class="sl-sideleft">
-    <div class="input-group input-group-search">
-        <input type="search" name="search" class="form-control" placeholder="Search"/>
-        <span class="input-group-btn">
-          <button class="btn"><i class="fa fa-search"></i></button>
-        </span><!-- input-group-btn -->
-    </div><!-- input-group -->
 
     <label class="sidebar-label">导航栏</label>
     <div class="sl-sideleft-menu">
-        <a th:href="@{index}" class="sl-menu-link active">
+        <a th:href="@{/activity/list}" class="sl-menu-link active">
             <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-paper-outline tx-20"></i>
                 <span class="menu-item-label">活动项列表</span>
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
-        <a th:href="@{addSalerecord}" class="sl-menu-link">
+        <a th:href="@{/addSalerecord}" class="sl-menu-link">
             <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
                 <span class="menu-item-label">新增销售记录</span>
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
-        <a href="#" class="sl-menu-link">
+        <a href="#" class="sl-menu-link" th:if="${user.isManagement} eq 2">
             <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-gear-outline tx-24"></i>
-                <span class="menu-item-label">设置</span>
+                <span class="menu-item-label">用户管理</span>
                 <i class="menu-item-arrow fa fa-angle-down"></i>
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
-            <li class="nav-item"><a href="form-elements.html" class="nav-link">Form Elements</a></li>
-            <li class="nav-item"><a href="form-layouts.html" class="nav-link">Form Layouts</a></li>
-            <li class="nav-item"><a href="form-validation.html" class="nav-link">Form Validation</a></li>
-            <li class="nav-item"><a href="form-wizards.html" class="nav-link">Form Wizards</a></li>
-            <li class="nav-item"><a href="form-editor-text.html" class="nav-link">Text Editor</a></li>
+            <li class="nav-item"><a th:href="@{/user}" class="nav-link">添加用户</a></li>
+            <li class="nav-item"><a th:href="@{/user/list}" class="nav-link">用户列表</a></li>
         </ul>
-        <a href="#" class="sl-menu-link">
+        <a th:href="@{/about}" class="sl-menu-link">
             <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
                 <span class="menu-item-label">关于</span>
@@ -106,8 +97,8 @@
         <nav class="nav">
             <div class="dropdown">
                 <a href="" class="nav-link nav-link-profile" data-toggle="dropdown">
-                    <span class="logged-name">Jane<span class="hidden-md-down"> Doe</span></span>
-                    <img src="picture/img3.jpg" class="wd-32 rounded-circle" alt=""/>
+                    <span class="logged-name" th:text="${user.companyShortName} + ' | ' + ${user.name}">海津皇冠 | 皇冠</span>
+                    <img th:src="@{/picture/mt_logo_wh.jpg}" class="wd-32 rounded-circle" alt=""/>
                 </a>
                 <div class="dropdown-menu dropdown-menu-header wd-200">
                     <ul class="list-unstyled user-profile-nav">
@@ -116,7 +107,7 @@
                         <li><a href=""><i class="icon ion-ios-download-outline"></i> Downloads</a></li>
                         <li><a href=""><i class="icon ion-ios-star-outline"></i> Favorites</a></li>
                         <li><a href=""><i class="icon ion-ios-folder-outline"></i> Collections</a></li>
-                        <li><a href=""><i class="icon ion-power"></i> Sign Out</a></li>
+                        <li><a th:href="@{/logout}"><i class="icon ion-power"></i> Sign Out</a></li>
                     </ul>
                 </div><!-- dropdown-menu -->
             </div><!-- dropdown -->
@@ -140,8 +131,8 @@
 <!-- ########## START: MAIN PANEL ########## -->
 <div class="sl-mainpanel">
     <nav class="breadcrumb sl-breadcrumb">
-        <a class="breadcrumb-item" th:href="index.html">茅台销售登记系统</a>
-        <a class="breadcrumb-item" th:href="actList.html">活动项列表</a>
+        <a class="breadcrumb-item" th:href="@{/activity/list}">茅台销售登记系统</a>
+        <a class="breadcrumb-item" th:href="@{/activity/list}">活动项目列表</a>
         <span class="breadcrumb-item active">客户登记列表</span>
     </nav>
 
@@ -191,140 +182,140 @@
                         <td>查看 编辑</td>
                     </tr>
                     <tr>
-                        <td>宋新义</td>
+                        <td>董磊</td>
                         <td>男</td>
-                        <td>18920219559</td>
-                        <td>120103195502123815</td>
-                        <td>天津海津皇冠</td>
-                        <td>2</td>
-                        <td>2018/02/06</td>
-                        <td>查看 编辑</td>
-                    </tr>
-                    <tr>
-                        <td>王军</td>
-                        <td>男</td>
-                        <td>15522302859</td>
-                        <td>120101197001101518</td>
+                        <td>13642031767</td>
+                        <td>140104197610100812</td>
                         <td>自营店</td>
                         <td>2</td>
                         <td>2018/02/06</td>
                         <td>查看 编辑</td>
                     </tr>
                     <tr>
-                        <td>宋新义</td>
+                        <td>刘光辉</td>
                         <td>男</td>
-                        <td>18920219559</td>
-                        <td>120103195502123815</td>
-                        <td>天津海津皇冠</td>
-                        <td>2</td>
-                        <td>2018/02/06</td>
-                        <td>查看 编辑</td>
-                    </tr>
-                    <tr>
-                        <td>王军</td>
-                        <td>男</td>
-                        <td>15522302859</td>
-                        <td>120101197001101518</td>
+                        <td>15895960381</td>
+                        <td>320122199605250010</td>
                         <td>自营店</td>
                         <td>2</td>
                         <td>2018/02/06</td>
                         <td>查看 编辑</td>
                     </tr>
                     <tr>
-                        <td>宋新义</td>
+                        <td>李英辉</td>
                         <td>男</td>
-                        <td>18920219559</td>
-                        <td>120103195502123815</td>
+                        <td>18622673088</td>
+                        <td>120225198911043178</td>
                         <td>天津海津皇冠</td>
                         <td>2</td>
                         <td>2018/02/06</td>
                         <td>查看 编辑</td>
                     </tr>
                     <tr>
-                        <td>王军</td>
+                        <td>楚子孟</td>
                         <td>男</td>
-                        <td>15522302859</td>
-                        <td>120101197001101518</td>
+                        <td>13174868930</td>
+                        <td>120221196909100336</td>
+                        <td>天津南山堂商贸</td>
+                        <td>2</td>
+                        <td>2018/02/06</td>
+                        <td>查看 编辑</td>
+                    </tr>
+                    <tr>
+                        <td>曹文刚</td>
+                        <td>男</td>
+                        <td>18920756566</td>
+                        <td>120221197302050987</td>
+                        <td>天津南山堂商贸</td>
+                        <td>2</td>
+                        <td>2018/02/06</td>
+                        <td>查看 编辑</td>
+                    </tr>
+                    <tr>
+                        <td>贾志新</td>
+                        <td>男</td>
+                        <td>15923450660</td>
+                        <td>120221197812030516</td>
                         <td>自营店</td>
                         <td>2</td>
                         <td>2018/02/06</td>
                         <td>查看 编辑</td>
                     </tr>
                     <tr>
-                        <td>宋新义</td>
+                        <td>李凯</td>
                         <td>男</td>
-                        <td>18920219559</td>
-                        <td>120103195502123815</td>
+                        <td>13802012433</td>
+                        <td>120221197806171598</td>
+                        <td>天津南山堂商贸</td>
+                        <td>2</td>
+                        <td>2018/02/06</td>
+                        <td>查看 编辑</td>
+                    </tr>
+                    <tr>
+                        <td>蓝文忠</td>
+                        <td>男</td>
+                        <td>13821163045</td>
+                        <td>12011319900929083x</td>
+                        <td>自营店</td>
+                        <td>2</td>
+                        <td>2018/02/06</td>
+                        <td>查看 编辑</td>
+                    </tr>
+                    <tr>
+                        <td>刘新航</td>
+                        <td>男</td>
+                        <td>15620556188</td>
+                        <td>120225199004100065</td>
                         <td>天津海津皇冠</td>
                         <td>2</td>
                         <td>2018/02/06</td>
                         <td>查看 编辑</td>
                     </tr>
                     <tr>
-                        <td>王军</td>
+                        <td>郭佳</td>
                         <td>男</td>
-                        <td>15522302859</td>
-                        <td>120101197001101518</td>
+                        <td>13820294387</td>
+                        <td>120103197811122671</td>
                         <td>自营店</td>
                         <td>2</td>
                         <td>2018/02/06</td>
                         <td>查看 编辑</td>
                     </tr>
                     <tr>
-                        <td>宋新义</td>
+                        <td>刘阳</td>
                         <td>男</td>
-                        <td>18920219559</td>
-                        <td>120103195502123815</td>
+                        <td>13516261691</td>
+                        <td>370302197311180550</td>
                         <td>天津海津皇冠</td>
                         <td>2</td>
                         <td>2018/02/06</td>
                         <td>查看 编辑</td>
                     </tr>
                     <tr>
-                        <td>王军</td>
+                        <td>刘妍</td>
                         <td>男</td>
-                        <td>15522302859</td>
-                        <td>120101197001101518</td>
+                        <td>13512845355</td>
+                        <td>120109197308051026</td>
                         <td>自营店</td>
                         <td>2</td>
                         <td>2018/02/06</td>
                         <td>查看 编辑</td>
                     </tr>
                     <tr>
-                        <td>宋新义</td>
+                        <td>白璐</td>
                         <td>男</td>
-                        <td>18920219559</td>
-                        <td>120103195502123815</td>
-                        <td>天津海津皇冠</td>
-                        <td>2</td>
-                        <td>2018/02/06</td>
-                        <td>查看 编辑</td>
-                    </tr>
-                    <tr>
-                        <td>王军</td>
-                        <td>男</td>
-                        <td>15522302859</td>
-                        <td>120101197001101518</td>
-                        <td>自营店</td>
-                        <td>2</td>
-                        <td>2018/02/06</td>
-                        <td>查看 编辑</td>
-                    </tr>
-                    <tr>
-                        <td>六</td>
-                        <td>男</td>
-                        <td>18920219559</td>
-                        <td>120103195502123815</td>
-                        <td>天津</td>
+                        <td>13752165239</td>
+                        <td>120103199008186747</td>
+                        <td>金鼎丰</td>
                         <td>2</td>
                         <td>2018/02/08</td>
                         <td>查看 编辑</td>
                     </tr>
                     <tr>
-                        <td>里三</td>
+                        <td>罗友玮</td>
                         <td>男</td>
-                        <td>1555555</td>
-                        <td>120101197001101518</td>
+                        <td>18602233634</td>
+                        <td>620503199007080350</td>
                         <td>自营店</td>
                         <td>2</td>
                         <td>2018/02/06</td>

@@ -38,7 +38,7 @@
                 <span class="menu-item-label">活动项列表</span>
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
-        <a th:href="@{/addActivity}" th:if="${user.isManagement} eq 2" class="sl-menu-link active">
+        <a th:href="@{/addActivity}" th:if="${user.isManagement} == 2" class="sl-menu-link">
             <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-paper-outline tx-20"></i>
                 <span class="menu-item-label">新增活动项目</span>
@@ -50,7 +50,7 @@
                 <span class="menu-item-label">添加销售记录</span>
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
-        <a href="#" class="sl-menu-link" th:if="${user.isManagement} eq 2">
+        <a href="#" class="sl-menu-link active show-sub" th:if="${user.isManagement} eq 2">
             <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-gear-outline tx-24"></i>
                 <span class="menu-item-label">用户管理</span>
@@ -58,7 +58,7 @@
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
-            <li class="nav-item"><a th:href="@{/user}" class="nav-link">添加用户</a></li>
+            <li class="nav-item"><a th:href="@{/user}" class="nav-link active">添加用户</a></li>
             <li class="nav-item"><a th:href="@{/user/list}" class="nav-link">用户列表</a></li>
         </ul>
         <a th:href="@{/about}" class="sl-menu-link">
@@ -93,7 +93,7 @@
                         <li><a href=""><i class="icon ion-ios-download-outline"></i> Downloads</a></li>
                         <li><a href=""><i class="icon ion-ios-star-outline"></i> Favorites</a></li>
                         <li><a href=""><i class="icon ion-ios-folder-outline"></i> Collections</a></li>
-                        <li><a href=""><i class="icon ion-power"></i> Sign Out</a></li>
+                        <li><a th:href="@{/logout}"><i class="icon ion-power"></i> Sign Out</a></li>
                     </ul>
                 </div><!-- dropdown-menu -->
             </div><!-- dropdown -->
@@ -113,7 +113,7 @@
 <div class="sl-mainpanel">
     <nav class="breadcrumb sl-breadcrumb">
         <a class="breadcrumb-item" href="index.html">茅台销售登记系统</a>
-        <span class="breadcrumb-item active">新增活动信息</span>
+        <span class="breadcrumb-item active">新增管理员用户</span>
     </nav>
 
     <div class="sl-pagebody">
@@ -124,43 +124,81 @@
         <!-- sl-page-title -->
 
         <div class="card pd-20 pd-sm-40 form-layout form-layout-4">
-            <h6 class="card-body-title">新增活动信息</h6>
-            <p class="mg-b-20 mg-sm-b-30">Add activity.</p>
+            <h6 class="card-body-title">新增管理员用户</h6>
+            <p class="mg-b-20 mg-sm-b-30">Add manager.</p>
 
-            <!--<form th:action="" method="post" id="addCustForm" onsubmit="return valiForm();">-->
+            <form th:action="@{/user/list}" method="post" id="addUserForm" onsubmit="return valiForm();">
                 <div class="row">
-                    <label class="col-sm-1 form-control-label"> 活动名称:<span
+                    <label class="col-sm-1 form-control-label"> 所在公司:<span
+                            class="tx-danger">*</span></label>
+                    <div class="col-sm-3 mg-t-10 mg-sm-t-0" id="ccDiv">
+                        <select class="form-control select2" data-placeholder="请选择用户所在公司"
+                                data-parsley-class-handler="#slWrapper"
+                                data-parsley-errors-container="#slErrorContainer"
+                                id="cc" name="companyName" onchange="valiCc()">
+                            <option label=""></option>
+                            <option th:each="item, allCc:${ccList}" th:value="${item}" th:text="${item}"></option>
+                        </select>
+                        <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px;"
+                    id="ccInfo"/>
+                </div>
+                </div><!-- row -->
+                <div class="row mg-t-20">
+                    <label class="col-sm-1 form-control-label"> 用户姓名:<span
                             class="tx-danger">*</span></label>
                     <div class="col-sm-3 mg-t-10 mg-sm-t-0">
-                        <input type="text" class="form-control" placeholder="请输入活动名称" name="name"
+                        <input type="text" class="form-control" placeholder="请输入管理员姓名" name="name"
                                onblur="validateName()"/>
                         <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px;"
                               id="nameInfo"/>
                     </div>
                 </div><!-- row -->
                 <div class="row mg-t-20">
-                    <label class="col-sm-1 form-control-label"> 活动时间:<span
-                            class="tx-danger">*</span></label>
+                    <label class="col-sm-1 form-control-label"> 用户密码:<span class="tx-danger">*</span></label>
                     <div class="col-sm-3 mg-t-10 mg-sm-t-0">
-                        <input type="text" class="form-control" placeholder="请选择活动时间段" name="time" id="time"/>
+                        <input type="text" class="form-control" placeholder="请输入管理员密码" name="password"
+                               onblur="valiPwd()"/>
+                        <input type="hidden" name="isManagement"/>
                         <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px;"
-                              id="timeInfo"/>
+                              id="pwdInfo"/>
                     </div>
-                </div><!-- row -->
+                </div>
                 <div class="row mg-t-20">
-                    <label class="col-sm-1"> 活动详情:<span
+                    <label class="col-sm-1 form-control-label"> 性别:<span
                             class="tx-danger">*</span></label>
-                    <div class="col-sm-5 mg-t-10 mg-sm-t-0">
-                        <textarea rows="5" class="form-control" placeholder="请输入活动详情信息(如活动目的、意义，活动促销产品的品类、规格、数量等活动信息)" name="marks" onblur="valiDel();"></textarea>
+                    <div class="col-sm-1 mg-t-10 mg-sm-t-0">
+                        <label class="rdiobox">
+                            <input name="rdio_sex" type="radio" checked="checked" value="男"/>
+                            <span>男</span>
+                        </label>
+                    </div>
+                    <div class="col-sm-1 mg-t-10 mg-sm-t-0">
+                        <label class="rdiobox">
+                            <input name="rdio_sex" type="radio" value="女"/>
+                            <span>女</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="row mg-t-20">
+                    <label class="col-sm-1 form-control-label"> 手机号码:<span class="tx-danger">*</span></label>
+                    <div class="col-sm-3 mg-t-10 mg-sm-t-0">
+                        <input type="text" class="form-control" placeholder="请输入客户手机号码" name="phone"
+                               onblur="validatePhone()"/>
                         <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px;"
-                              id="marksInfo"/>
+                              id="phoneInfo"/>
+                    </div>
+                </div>
+                <div class="row mg-t-20">
+                    <label class="col-sm-1 form-control-label"> 备注:</label>
+                    <div class="col-sm-5 mg-t-10 mg-sm-t-0">
+                        <textarea rows="2" class="form-control" placeholder="请输入备注信息" name="remark"></textarea>
                     </div>
                 </div>
                 <div class="form-layout-footer mg-t-30">
-                    <a class="btn btn-info mg-r-5" th:href="@{/activity/list}" type="submit">确认添加</a>
+                    <button class="btn btn-info mg-r-5" type="submit">确认添加</button>
                     <button class="btn btn-secondary" type="reset">清&nbsp;&nbsp;&nbsp;&nbsp;空</button>
                 </div><!-- form-layout-footer -->
-            <!--</form>-->
+            </form>
         </div><!-- card -->
     </div><!-- sl-pagebody -->
     <footer class="sl-footer">
@@ -181,19 +219,46 @@
 <script th:src="@{/js/perfect-scrollbar.jquery.js}"></script>
 <script th:src="@{/js/highlight.pack.js}"></script>
 <script th:src="@{/js/select2.min.js}"></script>
-<script th:src="@{/laydate/laydate.js}"></script>
 
 <script th:src="@{/js/starlight.js}"></script>
 <script>
     $(function () {
         'use strict';
 
+        $('.select2').select2({
+            minimumResultsForSearch: Infinity
+        });
+
+        // Select2 by showing the search
+        $('.select2-show-search').select2({
+            minimumResultsForSearch: ''
+        });
+
+        $('.select3').select2({
+            minimumResultsForSearch: Infinity
+        });
+
+        $('.select3-show-search').select3({
+            minimumResultsForSearch: ''
+        });
+
+        // Select2 with tagging support
+        $('.select2-tag').select2({
+            tags: true,
+            tokenSeparators: [',', ' ']
+        });
+
+        // Datepicker
+        $('.fc-datepicker').datepicker({
+            showOtherMonths: true,
+            shouOtherYear: true,
+            selectOterYear: true,
+            selectOtherMonths: true
+        });
+
+
     });
 
-    laydate.render({
-        elem: '#time'
-        ,range: true
-    });
 
 </script>
 
@@ -201,13 +266,29 @@
 
     /*<![CDATA[*/
 
+    // 验证用户所在公司
+    function valiCc() {
+        var companyName = $('select[name="companyName"]');
+        var ccInfo = $("#ccInfo");
+        var ccDiv = $("#ccDiv");
+        ccInfo.html("");
+        if (companyName.val() == null || ($.trim(companyName.val())) == "") {
+            ccInfo.html("请选择用户所在公司");
+            ccDiv.addClass("has-danger");
+            return false;
+        } else {
+            ccDiv.removeClass("has-danger");
+        }
+        return true;
+    }
+
     // 验证用户名是否为空
     function validateName() {
         var name = $('input[name="name"]');
         var nameInfo = $("#nameInfo");
         nameInfo.html("");
         if (name.val() == null || ($.trim(name.val())) == "") {
-            nameInfo.html("活动名称不能为空！");
+            nameInfo.html("客户姓名不能为空！");
             name.addClass("is-invalid");
             return false;
         } else {
@@ -216,44 +297,53 @@
         return true;
     }
 
-    // 验证活动时间段是否为空
-    function valiTime() {
-        var time = $('input[name="time"]');
-        var timeInfo = $("#timeInfo");
-        timeInfo.html("");
-        if (time.val() == null || ($.trim(time.val()) == "")) {
-            timeInfo.html("活动时间段不能为空！");
-            time.addClass("is-invalid");
+    // 验证密码
+    function valiPwd() {
+        var pwd = $("#password");
+        var pwdInfo = $("#pwdInfo");
+        pwdInfo.html("");
+        if (pwd.val() == null || ($.trim(pwd.val())) == "") {
+            pwdInfo.html("用户密码不能为空！");
+            pwd.addClass("is-invalid");
+            $("#pwdInfo").css('display', 'block');
+            return false;
+        } else if(pwd.val().trim().length < 6){
+            pwdInfo.html("用户密码不能低于6位！");
+            $("#pwdInfo").css('display', 'block');
+            pwd.addClass("is-invalid");
             return false;
         } else {
-            time.removeClass("is-invalid");
+            pwd.removeClass("is-invalid");
         }
         return true;
     }
 
-    // 验证活动详情是否为空
-    function valiDel() {
-        var marks = $('textarea[name="marks"]');
-        var marksInfo = $("#marksInfo");
-        marksInfo.html("");
-        if (marks.val() == null || ($.trim(marks.val()) == "")) {
-            marksInfo.html("活动详情信息不能为空！");
-            marks.addClass("is-invalid");
+    // 验证客户手机号
+    function validatePhone() {
+        var phone = $('input[name="phone"]');
+        var phoneInfo = $("#phoneInfo");
+        var pattern = /^1[34578]\d{9}$/;
+        phoneInfo.html("");
+        if ((phone.val() == null || ($.trim(phone.val())) == "")) {
+            phoneInfo.html("客户联系方式不能为空！");
+            phone.addClass("is-invalid");
             return false;
+        } else if (!(pattern.test(phone.val().toString()))) {
+            phoneInfo.html("用户手机号格式不正确！");
         } else {
-            marks.removeClass("is-invalid");
+            phone.removeClass("is-invalid");
         }
         return true;
     }
-
 
     function valiForm() {
-        if (validateName() && valiTime() && valiDel()) {
+        if (validateName() && validatePhone() && valiPwd() && valiCc()) {
             return true;
         } else {
             validateName();
-            valiTime();
-            valiDel();
+            validatePhone();
+            valiCc();
+            valiPwd();
             return false;
         }
     }

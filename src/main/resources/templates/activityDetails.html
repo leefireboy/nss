@@ -16,7 +16,9 @@
     <link th:href="@{/css/font-awesome.css}" rel="stylesheet"/>
     <link th:href="@{/css/ionicons.css}" rel="stylesheet"/>
     <link th:href="@{/css/perfect-scrollbar.css}" rel="stylesheet"/>
+    <link th:href="@{/css/rickshaw.min.css}" rel="stylesheet"/>
     <link th:href="@{/css/github.css}" rel="stylesheet"/>
+    <link th:href="@{/css/jquery.datatables.css}" rel="stylesheet"/>
     <link th:href="@{/css/select2.min.css}" rel="stylesheet"/>
 
     <!-- Starlight CSS -->
@@ -32,13 +34,13 @@
 
     <label class="sidebar-label">导航栏</label>
     <div class="sl-sideleft-menu">
-        <a th:href="@{/activity/list}" class="sl-menu-link">
+        <a th:href="@{/activity/list}" class="sl-menu-link active">
             <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-paper-outline tx-20"></i>
                 <span class="menu-item-label">活动项列表</span>
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
-        <a th:href="@{/addActivity}" th:if="${user.isManagement} eq 2" class="sl-menu-link active">
+        <a th:href="@{/addActivity}" th:if="${user.isManagement eq 2}" class="sl-menu-link">
             <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-paper-outline tx-20"></i>
                 <span class="menu-item-label">新增活动项目</span>
@@ -47,7 +49,7 @@
         <a th:href="@{/addSalerecord}" class="sl-menu-link">
             <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-                <span class="menu-item-label">添加销售记录</span>
+                <span class="menu-item-label">新增销售记录</span>
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <a href="#" class="sl-menu-link" th:if="${user.isManagement} eq 2">
@@ -93,7 +95,7 @@
                         <li><a href=""><i class="icon ion-ios-download-outline"></i> Downloads</a></li>
                         <li><a href=""><i class="icon ion-ios-star-outline"></i> Favorites</a></li>
                         <li><a href=""><i class="icon ion-ios-folder-outline"></i> Collections</a></li>
-                        <li><a href=""><i class="icon ion-power"></i> Sign Out</a></li>
+                        <li><a th:href="@{/logout}"><i class="icon ion-power"></i> Sign Out</a></li>
                     </ul>
                 </div><!-- dropdown-menu -->
             </div><!-- dropdown -->
@@ -106,62 +108,22 @@
 <!-- ########## END: HEAD PANEL ########## -->
 
 <!-- ########## START: RIGHT PANEL ########## -->
-
 <!-- ########## END: RIGHT PANEL ########## -->
 
 <!-- ########## START: MAIN PANEL ########## -->
 <div class="sl-mainpanel">
     <nav class="breadcrumb sl-breadcrumb">
         <a class="breadcrumb-item" href="index.html">茅台销售登记系统</a>
-        <span class="breadcrumb-item active">新增活动信息</span>
+        <span class="breadcrumb-item active">活动项列表</span>
     </nav>
 
     <div class="sl-pagebody">
-        <!-- <div class="sl-page-title">
-          <h5>Form Layouts</h5>
-          <p>Forms are used to collect user information with different element types of input, select, checkboxes, radios and more.</p>
-        </div> -->
-        <!-- sl-page-title -->
 
-        <div class="card pd-20 pd-sm-40 form-layout form-layout-4">
-            <h6 class="card-body-title">新增活动信息</h6>
-            <p class="mg-b-20 mg-sm-b-30">Add activity.</p>
+        <div class="card pd-20 pd-sm-40">
+            <h6 class="card-body-title">活动项目列表</h6>
 
-            <!--<form th:action="" method="post" id="addCustForm" onsubmit="return valiForm();">-->
-                <div class="row">
-                    <label class="col-sm-1 form-control-label"> 活动名称:<span
-                            class="tx-danger">*</span></label>
-                    <div class="col-sm-3 mg-t-10 mg-sm-t-0">
-                        <input type="text" class="form-control" placeholder="请输入活动名称" name="name"
-                               onblur="validateName()"/>
-                        <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px;"
-                              id="nameInfo"/>
-                    </div>
-                </div><!-- row -->
-                <div class="row mg-t-20">
-                    <label class="col-sm-1 form-control-label"> 活动时间:<span
-                            class="tx-danger">*</span></label>
-                    <div class="col-sm-3 mg-t-10 mg-sm-t-0">
-                        <input type="text" class="form-control" placeholder="请选择活动时间段" name="time" id="time"/>
-                        <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px;"
-                              id="timeInfo"/>
-                    </div>
-                </div><!-- row -->
-                <div class="row mg-t-20">
-                    <label class="col-sm-1"> 活动详情:<span
-                            class="tx-danger">*</span></label>
-                    <div class="col-sm-5 mg-t-10 mg-sm-t-0">
-                        <textarea rows="5" class="form-control" placeholder="请输入活动详情信息(如活动目的、意义，活动促销产品的品类、规格、数量等活动信息)" name="marks" onblur="valiDel();"></textarea>
-                        <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px;"
-                              id="marksInfo"/>
-                    </div>
-                </div>
-                <div class="form-layout-footer mg-t-30">
-                    <a class="btn btn-info mg-r-5" th:href="@{/activity/list}" type="submit">确认添加</a>
-                    <button class="btn btn-secondary" type="reset">清&nbsp;&nbsp;&nbsp;&nbsp;空</button>
-                </div><!-- form-layout-footer -->
-            <!--</form>-->
         </div><!-- card -->
+        <p class="mg-b-20 mg-sm-b-30">The list of all activities.</p>
     </div><!-- sl-pagebody -->
     <footer class="sl-footer">
         <div class="footer-left">
@@ -170,96 +132,22 @@
         <div class="footer-right d-flex align-items-center">Made by 海津皇冠.</div>
     </footer>
 </div><!-- sl-mainpanel -->
-
-
 <!-- ########## END: MAIN PANEL ########## -->
+
 
 <script th:src="@{/js/jquery.js}"></script>
 <script th:src="@{/js/popper.js}"></script>
 <script th:src="@{/js/bootstrap.js}"></script>
-<script th:src="@{/js/jquery-ui.js}"></script>
 <script th:src="@{/js/perfect-scrollbar.jquery.js}"></script>
 <script th:src="@{/js/highlight.pack.js}"></script>
-<script th:src="@{/js/select2.min.js}"></script>
-<script th:src="@{/laydate/laydate.js}"></script>
-
 <script th:src="@{/js/starlight.js}"></script>
+
 <script>
-    $(function () {
-        'use strict';
-
-    });
-
-    laydate.render({
-        elem: '#time'
-        ,range: true
-    });
-
-</script>
-
-<script th:inline="javascript">
-
     /*<![CDATA[*/
 
-    // 验证用户名是否为空
-    function validateName() {
-        var name = $('input[name="name"]');
-        var nameInfo = $("#nameInfo");
-        nameInfo.html("");
-        if (name.val() == null || ($.trim(name.val())) == "") {
-            nameInfo.html("活动名称不能为空！");
-            name.addClass("is-invalid");
-            return false;
-        } else {
-            name.removeClass("is-invalid");
-        }
-        return true;
-    }
-
-    // 验证活动时间段是否为空
-    function valiTime() {
-        var time = $('input[name="time"]');
-        var timeInfo = $("#timeInfo");
-        timeInfo.html("");
-        if (time.val() == null || ($.trim(time.val()) == "")) {
-            timeInfo.html("活动时间段不能为空！");
-            time.addClass("is-invalid");
-            return false;
-        } else {
-            time.removeClass("is-invalid");
-        }
-        return true;
-    }
-
-    // 验证活动详情是否为空
-    function valiDel() {
-        var marks = $('textarea[name="marks"]');
-        var marksInfo = $("#marksInfo");
-        marksInfo.html("");
-        if (marks.val() == null || ($.trim(marks.val()) == "")) {
-            marksInfo.html("活动详情信息不能为空！");
-            marks.addClass("is-invalid");
-            return false;
-        } else {
-            marks.removeClass("is-invalid");
-        }
-        return true;
-    }
-
-
-    function valiForm() {
-        if (validateName() && valiTime() && valiDel()) {
-            return true;
-        } else {
-            validateName();
-            valiTime();
-            valiDel();
-            return false;
-        }
-    }
 
     /*]]>*/
-
 </script>
+
 </body>
 </html>
