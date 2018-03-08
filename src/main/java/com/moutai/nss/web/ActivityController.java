@@ -33,8 +33,7 @@ public class ActivityController extends BaseController {
     public ModelAndView add(Activity activity) {
         ModelAndView mv = new ModelAndView("");
         mv.addObject("status", activityService.add(activity).getStatusInfo());
-        mv.addObject("user", getLoginUser());
-        return mv;
+        return addBaseAttribute(mv);
     }
 
     /**
@@ -46,8 +45,7 @@ public class ActivityController extends BaseController {
     public ModelAndView detail(@PathVariable("id") Long id) {
         ModelAndView mv = new ModelAndView("");
         mv.addObject("activity", activityService.queryById(id));
-        mv.addObject("user", getLoginUser());
-        return mv;
+        return addBaseAttribute(mv);
     }
 
     /**
@@ -59,8 +57,7 @@ public class ActivityController extends BaseController {
     public ModelAndView delete(@PathVariable("id") Long id) {
         ModelAndView mv = new ModelAndView("");
         mv.addObject("status", activityService.delete(id).getStatusInfo());
-        mv.addObject("user", getLoginUser());
-        return mv;
+        return addBaseAttribute(mv);
     }
 
     /**
@@ -72,8 +69,7 @@ public class ActivityController extends BaseController {
     public ModelAndView modify(Activity activity) {
         ModelAndView mv = new ModelAndView("");
         mv.addObject("status", activityService.modify(activity).getStatusInfo());
-        mv.addObject("user", getLoginUser());
-        return mv;
+        return addBaseAttribute(mv);
     }
 
     /**
@@ -88,8 +84,7 @@ public class ActivityController extends BaseController {
         Map<String, Object> map = activityService.queryByParams(name, page);
         mv.addObject("list", map.get("activities"));
         mv.addObject("page", map.get("page"));
-        mv.addObject("user", getLoginUser());
-        return mv;
+        return addBaseAttribute(mv);
     }
 
 }

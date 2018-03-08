@@ -94,6 +94,9 @@
             AND name LIKE '%${name}%'
         </if>
         ORDER BY id ASC
+        <if test="offset != null and limit != null">
+            LIMIT #{offset},#{limit}
+        </if>
     </select>
 
 </mapper>
