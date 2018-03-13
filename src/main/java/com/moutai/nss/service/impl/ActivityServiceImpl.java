@@ -6,6 +6,7 @@ import com.moutai.nss.dao.ActivityDao;
 import com.moutai.nss.entity.Activity;
 import com.moutai.nss.enums.StatusEnum;
 import com.moutai.nss.service.ActivityService;
+import com.moutai.nss.util.PageUtils;
 import com.moutai.nss.web.vo.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,9 +72,9 @@ public class ActivityServiceImpl extends BaseService<Activity> implements Activi
         // 根据参数查询分页活动列表
         List<Activity> activities;
         if (name == null || "".equals(name)) {
-            activities = activityDao.selectByParams(null, page.getPageNo() * page.getPageSize() + 1, page.getPageSize());
+            activities = activityDao.selectByParams(null, PageUtils.getOffset(page.getPageNo(), page.getPageSize()), page.getPageSize());
         } else {
-            activities = activityDao.selectByParams(name, page.getPageNo() * page.getPageSize() + 1, page.getPageSize());
+            activities = activityDao.selectByParams(name, PageUtils.getOffset(page.getPageNo(), page.getPageSize()), page.getPageSize());
         }
 
         logger.debug("activities: " + activities.toString());

@@ -8,15 +8,18 @@ import com.moutai.nss.entity.User;
 import com.moutai.nss.enums.StatusEnum;
 import com.moutai.nss.service.SaleRecordService;
 import com.moutai.nss.util.CglibBeanCopierUtils;
-import com.moutai.nss.web.vo.SaleRecordAddParams;
+import com.moutai.nss.util.PageUtils;
+import com.moutai.nss.web.vo.Page;
+import com.moutai.nss.web.vo.SaleRecordParams;
 import com.moutai.nss.web.vo.SaleRecordQueryParams;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.moutai.nss.web.vo.SaleRecordQuerySqlParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+
+import static com.moutai.nss.web.vo.Page.DEFAULT_PAGE_NO;
 
 /**
  * @Description:
@@ -30,7 +33,7 @@ public class SaleRecordServiceImpl extends BaseService implements SaleRecordServ
     private SaleRecordDao saleRecordDao;
 
     @Override
-    public StatusEnum save(SaleRecordAddParams params) {
+    public StatusEnum save(SaleRecordParams params) {
         User user = getLoginUser();
         SaleRecord saleRecord = new SaleRecord();
         CglibBeanCopierUtils.copyProperties(params, saleRecord);
@@ -52,9 +55,11 @@ public class SaleRecordServiceImpl extends BaseService implements SaleRecordServ
     }
 
     @Override
-    public StatusEnum modify(SaleRecord saleRecord) {
+    public StatusEnum modify(SaleRecordParams params) {
         // 管理员可以进行修改操作
         if (isManagement()) {
+            SaleRecord saleRecord = new SaleRecord();
+            CglibBeanCopierUtils.copyProperties(params, saleRecord);
             User user = getLoginUser();
             saleRecord.setModifyId(user.getId());
             saleRecord.setModifyTime(new Date());
@@ -65,9 +70,18 @@ public class SaleRecordServiceImpl extends BaseService implements SaleRecordServ
     }
 
     @Override
+    public SaleRecord detail(Long id) {
+        return getBaseDao().selectById(id);
+    }
+
+    @Override
     public List<SaleRecord> queryByParams(SaleRecordQueryParams params) {
         try {
-            return saleRecordDao.selectByParams(params);
+            SaleRecordQuerySqlParams sqlParams = new SaleRecordQuerySqlParams();
+            CglibBeanCopierUtils.copyProperties(params, sqlParams);
+            sqlParams.setOffset(PageUtils.getOffset(params.getPageNo(), Page.DEFAULT_PAGE_NO));
+            sqlParams.setLimit(Page.DEFAULT_PAGE_NO);
+            return saleRecordDao.selectByParams(sqlParams);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return null;

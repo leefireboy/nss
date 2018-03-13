@@ -54,6 +54,11 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     }
 
     @Override
+    public User detail(Long id) {
+        return null;
+    }
+
+    @Override
     public User queryByLoginParams(LoginParams params) {
         if ("0".equals(params.getType())) {
             return userDao.selectByNameOrMobilePhone(params.getLoginName(), null);

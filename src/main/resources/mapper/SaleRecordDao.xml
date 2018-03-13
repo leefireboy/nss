@@ -94,7 +94,7 @@
         SELECT <include refid="col"/> FROM sale_record WHERE delete_flag=0
     </select>
     
-    <select id="selectByParams" parameterType="com.moutai.nss.web.vo.SaleRecordQueryParams" resultType="SaleRecord">
+    <select id="selectByParams" parameterType="com.moutai.nss.web.vo.SaleRecordQuerySqlParams" resultType="SaleRecord">
         SELECT <include refid="col"/> FROM sale_record WHERE activity_id=#{activityId} AND delete_flag=0
         <if test="customer != null">
             AND customer=#{customer}

@@ -7,7 +7,7 @@ package com.moutai.nss.web.vo;
  */
 public class Page {
 
-    private final static Integer DEFAULT_PAGE_NO = 10;
+    public final static Integer DEFAULT_PAGE_NO = 10;
 
     /**
      * 页数

@@ -3,11 +3,11 @@ package com.moutai.nss.web.vo;
 import java.util.Date;
 
 /**
- * @Description: 销售记录查询参数
+ * @Description:
  * @Auther: LEE
- * @Date: Create in 2018/2/28 0:05
+ * @Date: Create in 2018/3/12 13:14
  */
-public class SaleRecordQueryParams {
+public class SaleRecordQuerySqlParams {
 
     private Long activityId;
 
@@ -23,7 +23,9 @@ public class SaleRecordQueryParams {
 
     private Date endTime;
 
-    private Integer pageNo;
+    private Integer offset;
+
+    private Integer limit;
 
     public Long getActivityId() {
         return activityId;
@@ -81,12 +83,20 @@ public class SaleRecordQueryParams {
         this.endTime = endTime;
     }
 
-    public Integer getPageNo() {
-        return pageNo;
+    public Integer getOffset() {
+        return offset;
     }
 
-    public void setPageNo(Integer pageNo) {
-        this.pageNo = pageNo;
+    public void setOffset(Integer offset) {
+        this.offset = offset;
+    }
+
+    public Integer getLimit() {
+        return limit;
+    }
+
+    public void setLimit(Integer limit) {
+        this.limit = limit;
     }
 
     @Override
@@ -99,7 +109,8 @@ public class SaleRecordQueryParams {
                 ", companyId=" + companyId +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
-                ", pageNo=" + pageNo +
+                ", offset=" + offset +
+                ", limit=" + limit +
                 '}';
     }
 

@@ -17,6 +17,8 @@ public interface UserService {
 
     StatusEnum modify(User user);
 
+    User detail(Long id);
+
     User queryByLoginParams(LoginParams params);
 
 }

@@ -5,10 +5,7 @@ import com.moutai.nss.entity.Activity;
 import com.moutai.nss.service.ActivityService;
 import com.moutai.nss.web.vo.Page;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Map;
@@ -31,7 +28,7 @@ public class ActivityController extends BaseController {
      */
     @RequestMapping(value = "/activity", method = RequestMethod.POST)
     public ModelAndView add(Activity activity) {
-        ModelAndView mv = new ModelAndView("");
+        ModelAndView mv = new ModelAndView("addActivity");
         mv.addObject("status", activityService.add(activity).getStatusInfo());
         return addBaseAttribute(mv);
     }
@@ -65,7 +62,7 @@ public class ActivityController extends BaseController {
      * @param activity 数据
      * @return status user
      */
-    @RequestMapping(value = "/activity/id", method = RequestMethod.PUT)
+    @RequestMapping(value = "/activity", method = RequestMethod.PUT)
     public ModelAndView modify(Activity activity) {
         ModelAndView mv = new ModelAndView("");
         mv.addObject("status", activityService.modify(activity).getStatusInfo());
@@ -79,9 +76,9 @@ public class ActivityController extends BaseController {
      * @return list page user
      */
     @RequestMapping(value = "/activity/list", method = RequestMethod.GET)
-    public ModelAndView listByName(String name, Page page) {
+    public ModelAndView listByName(String name, Integer pageNo) {
         ModelAndView mv = new ModelAndView("index");
-        Map<String, Object> map = activityService.queryByParams(name, page);
+        Map<String, Object> map = activityService.queryByParams(name, new Page(pageNo));
         mv.addObject("list", map.get("activities"));
         mv.addObject("page", map.get("page"));
         return addBaseAttribute(mv);

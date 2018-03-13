@@ -2,7 +2,7 @@ package com.moutai.nss.service;
 
 import com.moutai.nss.entity.SaleRecord;
 import com.moutai.nss.enums.StatusEnum;
-import com.moutai.nss.web.vo.SaleRecordAddParams;
+import com.moutai.nss.web.vo.SaleRecordParams;
 import com.moutai.nss.web.vo.SaleRecordQueryParams;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public interface SaleRecordService {
      * @param params 销售记录参数
      * @return
      */
-    StatusEnum save(SaleRecordAddParams params);
+    StatusEnum save(SaleRecordParams params);
 
     /**
      * 删除销售记录
@@ -30,10 +30,17 @@ public interface SaleRecordService {
 
     /**
      * 修改销售记录
-     * @param saleRecord 销售记录
+     * @param params 销售记录
      * @return
      */
-    StatusEnum modify(SaleRecord saleRecord);
+    StatusEnum modify(SaleRecordParams params);
+
+    /**
+     * 查询销售记录详情
+     * @param id ID
+     * @return 销售记录
+     */
+    SaleRecord detail(Long id);
 
     /**
      * 根据参数查询销售记录

@@ -2,7 +2,7 @@ package com.moutai.nss.dao;
 
 import com.moutai.nss.base.BaseDao;
 import com.moutai.nss.entity.SaleRecord;
-import com.moutai.nss.web.vo.SaleRecordQueryParams;
+import com.moutai.nss.web.vo.SaleRecordQuerySqlParams;
 
 import java.util.List;
 
@@ -15,9 +15,9 @@ public interface SaleRecordDao extends BaseDao<SaleRecord> {
 
     /**
      * 根据参数查询销售记录列表
-     * @param params 参数
+     * @param sqlParams
      * @return
      */
-    List<SaleRecord> selectByParams(SaleRecordQueryParams params);
+    List<SaleRecord> selectByParams(SaleRecordQuerySqlParams sqlParams);
 
 }

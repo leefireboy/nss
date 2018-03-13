@@ -5,13 +5,17 @@ package com.moutai.nss.web.vo;
  * @Auther: LEE
  * @Date: Create in 2018/3/3 9:29
  */
-public class SaleRecordAddParams {
+public class SaleRecordParams {
 
     private String customer;
 
     private String idCard;
 
     private String mobilePhone;
+
+    private Long companyId;
+
+    private String companyShortName;
 
     private Long activityId;
 
@@ -41,6 +45,22 @@ public class SaleRecordAddParams {
         this.mobilePhone = mobilePhone;
     }
 
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+    }
+
+    public String getCompanyShortName() {
+        return companyShortName;
+    }
+
+    public void setCompanyShortName(String companyShortName) {
+        this.companyShortName = companyShortName;
+    }
+
     public Long getActivityId() {
         return activityId;
     }
@@ -59,10 +79,12 @@ public class SaleRecordAddParams {
 
     @Override
     public String toString() {
-        return "SaleRecordAddParams{" +
+        return "SaleRecordParams{" +
                 "customer='" + customer + '\'' +
                 ", idCard='" + idCard + '\'' +
                 ", mobilePhone='" + mobilePhone + '\'' +
+                ", companyId=" + companyId +
+                ", companyShortName='" + companyShortName + '\'' +
                 ", activityId=" + activityId +
                 ", remark='" + remark + '\'' +
                 '}';
