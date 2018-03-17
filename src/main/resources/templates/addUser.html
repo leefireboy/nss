@@ -127,7 +127,7 @@
             <h6 class="card-body-title">新增管理员用户</h6>
             <p class="mg-b-20 mg-sm-b-30">Add manager.</p>
 
-            <form th:action="@{/user/list}" method="post" id="addUserForm" onsubmit="return valiForm();">
+            <form th:action="@{/user}" method="post" id="addUserForm" onsubmit="return valiForm();">
                 <div class="row">
                     <label class="col-sm-1 form-control-label"> 所在公司:<span
                             class="tx-danger">*</span></label>
@@ -137,7 +137,7 @@
                                 data-parsley-errors-container="#slErrorContainer"
                                 id="cc" name="companyName" onchange="valiCc()">
                             <option label=""></option>
-                            <option th:each="item, allCc:${ccList}" th:value="${item}" th:text="${item}"></option>
+                            <option th:each="item, allCc:${list}" th:value="${item.companyId}" th:text="${item}"></option>
                         </select>
                         <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px;"
                     id="ccInfo"/>
@@ -164,6 +164,16 @@
                     </div>
                 </div>
                 <div class="row mg-t-20">
+                    <label class="col-sm-1 form-control-label"> 确认密码:<span class="tx-danger">*</span></label>
+                    <div class="col-sm-3 mg-t-10 mg-sm-t-0">
+                        <input type="text" class="form-control" placeholder="请再次输入管理员密码" name="repeatPassword"
+                               onblur="valiRePwd()"/>
+                        <input type="hidden" name="isManagement"/>
+                        <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px;"
+                              id="RepwdInfo"/>
+                    </div>
+                </div>
+                <div class="row mg-t-20">
                     <label class="col-sm-1 form-control-label"> 性别:<span
                             class="tx-danger">*</span></label>
                     <div class="col-sm-1 mg-t-10 mg-sm-t-0">
@@ -182,7 +192,7 @@
                 <div class="row mg-t-20">
                     <label class="col-sm-1 form-control-label"> 手机号码:<span class="tx-danger">*</span></label>
                     <div class="col-sm-3 mg-t-10 mg-sm-t-0">
-                        <input type="text" class="form-control" placeholder="请输入客户手机号码" name="phone"
+                        <input type="text" class="form-control" placeholder="请输入客户手机号码" name="mobilePhone"
                                onblur="validatePhone()"/>
                         <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px;"
                               id="phoneInfo"/>
@@ -299,7 +309,7 @@
 
     // 验证密码
     function valiPwd() {
-        var pwd = $("#password");
+        var pwd = $('input[name="password"]');
         var pwdInfo = $("#pwdInfo");
         pwdInfo.html("");
         if (pwd.val() == null || ($.trim(pwd.val())) == "") {
@@ -318,9 +328,36 @@
         return true;
     }
 
+    // 验证确认密码
+    function valiRePwd() {
+        var pwd = $('input[name="password"]');
+        var Repwd = $('input[name="repeatPassword"]');
+        var RepwdInfo = $("#RepwdInfo");
+        RepwdInfo.html("");
+        if (Repwd.val() == null || ($.trim(Repwd.val())) == "") {
+            RepwdInfo.html("用户密码不能为空！");
+            Repwd.addClass("is-invalid");
+            $("#RepwdInfo").css('display', 'block');
+            return false;
+        } else if (Repwd.val() != pwd.val()) {
+            RepwdInfo.html("两次输入密码不一致！");
+            $("#RepwdInfo").css('display', 'block');
+            Repwd.addClass("is-invalid");
+            return false;
+        } else if (Repwd.val().trim().length < 6) {
+            RepwdInfo.html("用户密码不能低于6位！");
+            $("#RepwdInfo").css('display', 'block');
+            Repwd.addClass("is-invalid");
+            return false;
+        } else {
+            Repwd.removeClass("is-invalid");
+        }
+        return true;
+    }
+
     // 验证客户手机号
     function validatePhone() {
-        var phone = $('input[name="phone"]');
+        var phone = $('input[name="mobilePhone"]');
         var phoneInfo = $("#phoneInfo");
         var pattern = /^1[34578]\d{9}$/;
         phoneInfo.html("");
@@ -330,6 +367,8 @@
             return false;
         } else if (!(pattern.test(phone.val().toString()))) {
             phoneInfo.html("用户手机号格式不正确！");
+            phone.addClass("is-invalid");
+            return false;
         } else {
             phone.removeClass("is-invalid");
         }
@@ -337,13 +376,14 @@
     }
 
     function valiForm() {
-        if (validateName() && validatePhone() && valiPwd() && valiCc()) {
+        if (validateName() && validatePhone() && valiPwd() && valiRePwd() && valiCc()) {
             return true;
         } else {
             validateName();
             validatePhone();
             valiCc();
             valiPwd();
+            valiRePwd()
             return false;
         }
     }
