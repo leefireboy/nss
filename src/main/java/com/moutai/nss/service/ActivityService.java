@@ -23,4 +23,6 @@ public interface ActivityService {
 
     Map<String, Object> queryByParams(String name, Page page);
 
+    int pageTotal();
+
 }

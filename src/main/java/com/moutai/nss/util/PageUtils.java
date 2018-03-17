@@ -1,5 +1,7 @@
 package com.moutai.nss.util;
 
+import static com.moutai.nss.web.vo.Page.DEFAULT_PAGE_NO;
+
 /**
  * @Description: 分页工具类
  * @Auther: LEE
@@ -15,6 +17,16 @@ public class PageUtils {
      */
     public static int getOffset(int pageNo, int pageSize) {
         return (pageNo - 1) * pageSize + 1;
+    }
+
+
+    /**
+     *
+     * @param count
+     * @return
+     */
+    public static int getPageTotal(int count) {
+        return count / DEFAULT_PAGE_NO + (count % DEFAULT_PAGE_NO == 0 ? 0 : 1);
     }
 
 }

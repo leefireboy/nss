@@ -127,7 +127,7 @@
             <h6 class="card-body-title">新增活动信息</h6>
             <p class="mg-b-20 mg-sm-b-30">Add activity.</p>
 
-            <!--<form th:action="" method="post" id="addCustForm" onsubmit="return valiForm();">-->
+            <form th:action="@{/activity}" method="post" id="addCustForm" onsubmit="return valiForm();">
                 <div class="row">
                     <label class="col-sm-1 form-control-label"> 活动名称:<span
                             class="tx-danger">*</span></label>
@@ -151,16 +151,16 @@
                     <label class="col-sm-1"> 活动详情:<span
                             class="tx-danger">*</span></label>
                     <div class="col-sm-5 mg-t-10 mg-sm-t-0">
-                        <textarea rows="5" class="form-control" placeholder="请输入活动详情信息(如活动目的、意义，活动促销产品的品类、规格、数量等活动信息)" name="marks" onblur="valiDel();"></textarea>
+                        <textarea rows="5" class="form-control" placeholder="请输入活动详情信息(如活动目的、意义，活动促销产品的品类、规格、数量等活动信息)" name="remark" onblur="valiDel();"></textarea>
                         <span class="col-sm-12 mt-t-10 mg-sm-t-0 form-control-label" style="color: red; font-size:12px;"
                               id="marksInfo"/>
                     </div>
                 </div>
                 <div class="form-layout-footer mg-t-30">
-                    <a class="btn btn-info mg-r-5" th:href="@{/activity/list}" type="submit">确认添加</a>
+                    <button class="btn btn-info mg-r-5" type="submit">确认添加</button>
                     <button class="btn btn-secondary" type="reset">清&nbsp;&nbsp;&nbsp;&nbsp;空</button>
                 </div><!-- form-layout-footer -->
-            <!--</form>-->
+            </form>
         </div><!-- card -->
     </div><!-- sl-pagebody -->
     <footer class="sl-footer">
@@ -233,15 +233,15 @@
 
     // 验证活动详情是否为空
     function valiDel() {
-        var marks = $('textarea[name="marks"]');
+        var remark = $('textarea[name="remark"]');
         var marksInfo = $("#marksInfo");
         marksInfo.html("");
-        if (marks.val() == null || ($.trim(marks.val()) == "")) {
+        if (remark.val() == null || ($.trim(remark.val()) == "")) {
             marksInfo.html("活动详情信息不能为空！");
-            marks.addClass("is-invalid");
+            remark.addClass("is-invalid");
             return false;
         } else {
-            marks.removeClass("is-invalid");
+            remark.removeClass("is-invalid");
         }
         return true;
     }

@@ -28,8 +28,9 @@ public class ActivityController extends BaseController {
      */
     @RequestMapping(value = "/activity", method = RequestMethod.POST)
     public ModelAndView add(Activity activity) {
-        ModelAndView mv = new ModelAndView("addActivity");
+        ModelAndView mv = new ModelAndView("index");
         mv.addObject("status", activityService.add(activity).getStatusInfo());
+        mv.addObject("page", new Page(1, activityService.pageTotal()));
         return addBaseAttribute(mv);
     }
 

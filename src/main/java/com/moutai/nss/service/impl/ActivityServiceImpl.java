@@ -86,6 +86,11 @@ public class ActivityServiceImpl extends BaseService<Activity> implements Activi
     }
 
     @Override
+    public int pageTotal() {
+        return PageUtils.getPageTotal(activityDao.count());
+    }
+
+    @Override
     protected BaseDao<Activity> getBaseDao() {
         return this.activityDao;
     }

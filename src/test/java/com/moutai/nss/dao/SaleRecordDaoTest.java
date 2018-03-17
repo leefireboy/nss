@@ -1,7 +1,7 @@
 package com.moutai.nss.dao;
 
 import com.moutai.nss.entity.SaleRecord;
-import com.moutai.nss.web.vo.SaleRecordQueryParams;
+import com.moutai.nss.web.vo.SaleRecordQuerySqlParams;
 import org.junit.Assert;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +46,7 @@ public class SaleRecordDaoTest {
 
 //    @Test
     public void selectByParams() {
-        SaleRecordQueryParams params = new SaleRecordQueryParams();
+        SaleRecordQuerySqlParams params = new SaleRecordQuerySqlParams();
         params.setActivityId(0L);
         Assert.assertEquals(0, saleRecordDao.selectByParams(params).size());
     }
