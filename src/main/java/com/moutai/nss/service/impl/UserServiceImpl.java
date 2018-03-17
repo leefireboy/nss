@@ -6,13 +6,17 @@ import com.moutai.nss.dao.UserDao;
 import com.moutai.nss.entity.User;
 import com.moutai.nss.enums.StatusEnum;
 import com.moutai.nss.service.UserService;
+import com.moutai.nss.util.PageUtils;
 import com.moutai.nss.web.vo.LoginParams;
+import com.moutai.nss.web.vo.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description:
@@ -65,6 +69,34 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         } else {
             return userDao.selectByNameOrMobilePhone(null, params.getLoginPassword());
         }
+    }
+
+    @Override
+    public Map<String, Object> queryByParams(String name, Page page) {
+        if (page.getPageNo() == null) {
+            page = new Page(1);
+        }
+        // 计算总页数
+        int count = userDao.count(getLoginUser().getCompanyId());
+        int pageTotal =  PageUtils.getPageTotal(count);
+        // 更新总页数
+        page.setPageTotal(pageTotal);
+        // 根据参数查询分页用户列表
+        List<User> users;
+        int offset = PageUtils.getOffset(page.getPageNo(), page.getPageSize());
+        int limit = page.getPageSize();
+        if (name == null || "".equals(name)) {
+            users = userDao.selectByParams(null, getLoginUser().getCompanyId(), offset, limit);
+        } else {
+            users = userDao.selectByParams(name, getLoginUser().getCompanyId(), offset, limit);
+        }
+
+        logger.debug("users: " + users.toString());
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("users", users);
+        logger.debug("page: " + page.toString());
+        map.put("page", page);
+        return map;
     }
 
     @Override

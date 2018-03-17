@@ -3,6 +3,9 @@ package com.moutai.nss.service;
 import com.moutai.nss.entity.User;
 import com.moutai.nss.enums.StatusEnum;
 import com.moutai.nss.web.vo.LoginParams;
+import com.moutai.nss.web.vo.Page;
+
+import java.util.Map;
 
 /**
  * @Description:
@@ -20,5 +23,7 @@ public interface UserService {
     User detail(Long id);
 
     User queryByLoginParams(LoginParams params);
+
+    Map<String, Object> queryByParams(String name, Page page);
 
 }

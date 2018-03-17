@@ -2,10 +2,15 @@ package com.moutai.nss.web;
 
 import com.moutai.nss.base.BaseController;
 import com.moutai.nss.entity.Activity;
+import com.moutai.nss.enums.StatusEnum;
 import com.moutai.nss.service.ActivityService;
+import com.moutai.nss.web.vo.ActivityParams;
 import com.moutai.nss.web.vo.Page;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Map;
@@ -27,10 +32,16 @@ public class ActivityController extends BaseController {
      * @return status user
      */
     @RequestMapping(value = "/activity", method = RequestMethod.POST)
-    public ModelAndView add(Activity activity) {
-        ModelAndView mv = new ModelAndView("index");
-        mv.addObject("status", activityService.add(activity).getStatusInfo());
-        mv.addObject("page", new Page(1, activityService.pageTotal()));
+    public ModelAndView add(ActivityParams params) throws Exception {
+        ModelAndView mv = new ModelAndView();
+        StatusEnum statusEnum = activityService.add(params);
+        if (statusEnum.getStatus() == 1) {
+            mv.setViewName("redirect:/activity/list");
+
+        } else if (statusEnum.getStatus() == 0) {
+            mv.addObject("status", statusEnum.getStatusInfo());
+            mv.setViewName("addActivity");
+        }
         return addBaseAttribute(mv);
     }
 

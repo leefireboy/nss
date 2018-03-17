@@ -29,4 +29,9 @@ public interface UserDao extends BaseDao<User> {
      */
     User selectByNameOrMobilePhone(@Param("name") String name, @Param("mobilePhone") String mobilePhone);
 
+    List<User> selectByParams(@Param("name") String name, @Param("companyId") Long companyId,
+                              @Param("offset") Integer offset, @Param("limit") Integer limit);
+
+    int count(Long companyId);
+
 }

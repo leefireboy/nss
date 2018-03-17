@@ -62,11 +62,11 @@
     </update>
 
     <select id="selectById" resultType="Company">
-        SELECT <include refid="col"/> FROM company WHERE id=#{id}
+        SELECT <include refid="col"/> FROM company WHERE id=#{id} AND delete_flag=0
     </select>
 
     <select id="selectAll" resultType="Company">
-        SELECT <include refid="col"/> FROM company
+        SELECT <include refid="col"/> FROM company WHERE delete_flag=0
     </select>
 
 </mapper>

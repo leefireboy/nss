@@ -3,12 +3,16 @@ package com.moutai.nss.web;
 import com.moutai.nss.base.BaseController;
 import com.moutai.nss.entity.User;
 import com.moutai.nss.enums.StatusEnum;
+import com.moutai.nss.service.CompanyService;
 import com.moutai.nss.service.UserService;
 import com.moutai.nss.util.CglibBeanCopierUtils;
+import com.moutai.nss.web.vo.Page;
 import com.moutai.nss.web.vo.UserParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Map;
 
 /**
  * @Description:
@@ -20,6 +24,16 @@ public class UserController extends BaseController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CompanyService companyService;
+
+    @RequestMapping(value = "/user/initUser", method = RequestMethod.GET)
+    public ModelAndView userInitPage() {
+        ModelAndView mv = new ModelAndView("addUser");
+        mv.addObject("companys", companyService.allCompany());
+        return addBaseAttribute(mv);
+    }
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     public ModelAndView add(UserParams userParams) {
@@ -64,8 +78,11 @@ public class UserController extends BaseController {
     }
 
     @RequestMapping(value = "/user/list", method = RequestMethod.GET)
-    public ModelAndView userList() {
+    public ModelAndView userList(String name, Integer pageNo) {
         ModelAndView mv = new ModelAndView("userList");
+        Map<String, Object> map = userService.queryByParams(name, new Page(pageNo));
+        mv.addObject("list", map.get("users"));
+        mv.addObject("page", map.get("page"));
         return addBaseAttribute(mv);
     }
 

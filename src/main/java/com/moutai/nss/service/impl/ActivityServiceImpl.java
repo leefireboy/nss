@@ -6,11 +6,15 @@ import com.moutai.nss.dao.ActivityDao;
 import com.moutai.nss.entity.Activity;
 import com.moutai.nss.enums.StatusEnum;
 import com.moutai.nss.service.ActivityService;
+import com.moutai.nss.util.CglibBeanCopierUtils;
+import com.moutai.nss.util.DateFormatUtil;
 import com.moutai.nss.util.PageUtils;
+import com.moutai.nss.web.vo.ActivityParams;
 import com.moutai.nss.web.vo.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,8 +31,17 @@ public class ActivityServiceImpl extends BaseService<Activity> implements Activi
     private ActivityDao activityDao;
 
     @Override
-    public StatusEnum add(Activity activity) {
+    public StatusEnum add(ActivityParams params) throws Exception {
         if (isSuperManagement()) {
+            Activity activity = new Activity();
+            activity.setName(params.getName());
+            activity.setRemark(params.getRemark());
+            String stringTime = params.getTime();
+            activity.setStartTime(DateFormatUtil.parseYYYY_MM_dd(stringTime.substring(0,10)));
+            activity.setEndTime(DateFormatUtil.parseYYYY_MM_dd(stringTime.substring(13)));
+            Long userId = getLoginUser().getId();
+            activity.setCreateId(userId);
+            activity.setModifyId(userId);
             return getCUDStatus(getBaseDao().insert(activity));
         } else {
             return StatusEnum.NO_AUTHORITY;
@@ -65,7 +78,7 @@ public class ActivityServiceImpl extends BaseService<Activity> implements Activi
         }
         // 计算总页数
         int count = activityDao.count();
-        int pageTotal =  count / page.getPageSize() + (count % page.getPageSize() == 0 ? 0 : 1);
+        int pageTotal =  PageUtils.getPageTotal(count);
         // 更新总页数
         page.setPageTotal(pageTotal);
 

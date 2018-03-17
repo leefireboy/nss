@@ -2,6 +2,7 @@ package com.moutai.nss.service;
 
 import com.moutai.nss.entity.Activity;
 import com.moutai.nss.enums.StatusEnum;
+import com.moutai.nss.web.vo.ActivityParams;
 import com.moutai.nss.web.vo.Page;
 
 import java.util.Map;
@@ -13,7 +14,7 @@ import java.util.Map;
  */
 public interface ActivityService {
 
-    StatusEnum add(Activity activity);
+    StatusEnum add(ActivityParams params) throws Exception;
 
     StatusEnum delete(Long id);
 
